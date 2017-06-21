@@ -22,23 +22,31 @@
  * SOFTWARE.
  */
 
-package com.sammyukavi.wbdatacatalog.activities.listcatalog;
+package com.sammyukavi.wbdatacatalog.data.api;
 
-import com.sammyukavi.wbdatacatalog.activities.BasePresenterContract;
-import com.sammyukavi.wbdatacatalog.activities.BaseView;
-
-public interface ListCatalogContract {
+public class PagingInfo {
 	
-	interface View extends BaseView<Presenter> {
-		
-		void blockUI();
-		
-		void unBlockUI();
+	private int page;
+	private int results_per_page;
+	
+	public PagingInfo(int page, int results_per_page) {
+		this.page = page;
+		this.results_per_page = results_per_page;
 	}
 	
-	interface Presenter extends BasePresenterContract {
-		
-		void fetchCatalog();
+	public int getPage() {
+		return page;
 	}
 	
+	public void setPage(int page) {
+		this.page = page;
+	}
+	
+	public int getResults_per_page() {
+		return results_per_page;
+	}
+	
+	public void setResults_per_page(int results_per_page) {
+		this.results_per_page = results_per_page;
+	}
 }

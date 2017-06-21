@@ -22,23 +22,63 @@
  * SOFTWARE.
  */
 
-package com.sammyukavi.wbdatacatalog.activities.listcatalog;
+package com.sammyukavi.wbdatacatalog.models;
 
-import com.sammyukavi.wbdatacatalog.activities.BasePresenterContract;
-import com.sammyukavi.wbdatacatalog.activities.BaseView;
-
-public interface ListCatalogContract {
+public class Catalog {
 	
-	interface View extends BaseView<Presenter> {
-		
-		void blockUI();
-		
-		void unBlockUI();
+	private String total;
+	
+	private String per_page;
+	
+	private String page;
+	
+	private String pages;
+	
+	private DataCatalog[] datacatalog;
+	
+	public String getTotal() {
+		return total;
 	}
 	
-	interface Presenter extends BasePresenterContract {
-		
-		void fetchCatalog();
+	public void setTotal(String total) {
+		this.total = total;
 	}
 	
+	public String getPer_page() {
+		return per_page;
+	}
+	
+	public void setPer_page(String per_page) {
+		this.per_page = per_page;
+	}
+	
+	public String getPage() {
+		return page;
+	}
+	
+	public void setPage(String page) {
+		this.page = page;
+	}
+	
+	public String getPages() {
+		return pages;
+	}
+	
+	public void setPages(String pages) {
+		this.pages = pages;
+	}
+	
+	public DataCatalog[] getDatacatalog() {
+		return datacatalog;
+	}
+	
+	public void setDatacatalog(DataCatalog[] datacatalog) {
+		this.datacatalog = datacatalog;
+	}
+	
+	@Override
+	public String toString() {
+		return "ClassPojo [total = " + total + ", per_page = " + per_page + ", page = " + page + ", pages = " + pages
+				+ ", datacatalog = " + datacatalog + "]";
+	}
 }

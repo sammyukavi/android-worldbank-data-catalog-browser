@@ -22,23 +22,11 @@
  * SOFTWARE.
  */
 
-package com.sammyukavi.wbdatacatalog.activities.listcatalog;
+package com.sammyukavi.wbdatacatalog.activities;
 
-import com.sammyukavi.wbdatacatalog.activities.BasePresenterContract;
-import com.sammyukavi.wbdatacatalog.activities.BaseView;
-
-public interface ListCatalogContract {
+public interface BasePresenterContract {
 	
-	interface View extends BaseView<Presenter> {
-		
-		void blockUI();
-		
-		void unBlockUI();
-	}
+	void subscribe();
 	
-	interface Presenter extends BasePresenterContract {
-		
-		void fetchCatalog();
-	}
-	
+	void unsubscribe();
 }

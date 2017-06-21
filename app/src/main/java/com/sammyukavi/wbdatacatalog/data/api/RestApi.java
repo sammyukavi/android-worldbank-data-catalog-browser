@@ -22,23 +22,16 @@
  * SOFTWARE.
  */
 
-package com.sammyukavi.wbdatacatalog.activities.listcatalog;
+package com.sammyukavi.wbdatacatalog.data.api;
 
-import com.sammyukavi.wbdatacatalog.activities.BasePresenterContract;
-import com.sammyukavi.wbdatacatalog.activities.BaseView;
+import com.sammyukavi.wbdatacatalog.models.Catalog;
 
-public interface ListCatalogContract {
+import retrofit2.Call;
+import retrofit2.http.GET;
+import retrofit2.http.Query;
+
+public interface RestApi {
 	
-	interface View extends BaseView<Presenter> {
-		
-		void blockUI();
-		
-		void unBlockUI();
-	}
-	
-	interface Presenter extends BasePresenterContract {
-		
-		void fetchCatalog();
-	}
-	
+	@GET("metatypes/name;description?format=json")
+	Call<Catalog> getFullCatalog(@Query("page") int page, @Query("per_page") int results_page);
 }

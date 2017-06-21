@@ -22,23 +22,29 @@
  * SOFTWARE.
  */
 
-package com.sammyukavi.wbdatacatalog.activities.listcatalog;
+package com.sammyukavi.wbdatacatalog.activities;
 
-import com.sammyukavi.wbdatacatalog.activities.BasePresenterContract;
-import com.sammyukavi.wbdatacatalog.activities.BaseView;
+import rx.Subscription;
+import rx.subscriptions.CompositeSubscription;
 
-public interface ListCatalogContract {
+public abstract class BasePresenter implements BasePresenterContract {
 	
-	interface View extends BaseView<Presenter> {
-		
-		void blockUI();
-		
-		void unBlockUI();
+	private CompositeSubscription mSubscription;
+	
+	public BasePresenter() {
+		mSubscription = new CompositeSubscription();
 	}
 	
-	interface Presenter extends BasePresenterContract {
-		
-		void fetchCatalog();
+	public void addSubscription(Subscription subscription) {
+		if (mSubscription != null) {
+			mSubscription.add(subscription);
+		}
 	}
 	
+	@Override
+	public void unsubscribe() {
+		if (mSubscription != null) {
+			mSubscription.clear();
+		}
+	}
 }

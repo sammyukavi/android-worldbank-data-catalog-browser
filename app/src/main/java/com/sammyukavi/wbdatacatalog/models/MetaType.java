@@ -22,23 +22,32 @@
  * SOFTWARE.
  */
 
-package com.sammyukavi.wbdatacatalog.activities.listcatalog;
+package com.sammyukavi.wbdatacatalog.models;
 
-import com.sammyukavi.wbdatacatalog.activities.BasePresenterContract;
-import com.sammyukavi.wbdatacatalog.activities.BaseView;
-
-public interface ListCatalogContract {
+public class MetaType {
 	
-	interface View extends BaseView<Presenter> {
-		
-		void blockUI();
-		
-		void unBlockUI();
+	private String id;
+	
+	private String value;
+	
+	public String getId() {
+		return id;
 	}
 	
-	interface Presenter extends BasePresenterContract {
-		
-		void fetchCatalog();
+	public void setId(String id) {
+		this.id = id;
 	}
 	
+	public String getValue() {
+		return value;
+	}
+	
+	public void setValue(String value) {
+		this.value = value;
+	}
+	
+	@Override
+	public String toString() {
+		return "ClassPojo [id = " + id + ", value = " + value + "]";
+	}
 }

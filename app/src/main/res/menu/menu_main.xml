@@ -1,4 +1,4 @@
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ~ MIT License
   ~
   ~ Copyright (c) 2017 Sammy Ukavi
@@ -22,8 +22,14 @@
   ~ SOFTWARE.
   -->
 
-<resources>
-    <!-- Default screen margins, per the Android Design guidelines. -->
-    <dimen name="nav_title_margin">10dp</dimen>
-    <dimen name="avatar_size">50dp</dimen>
-</resources>
+<menu xmlns:tools="http://schemas.android.com/tools"
+		xmlns:android="http://schemas.android.com/apk/res/android"
+		xmlns:app="http://schemas.android.com/apk/res-auto"
+		tools:context="org.openmrs.mobile.activities.ACBaseActivity">
+	<item
+			android:id="@+id/action_search"
+			android:icon="@android:drawable/ic_menu_search"
+			android:title="@string/search"
+			app:actionViewClass="android.support.v7.widget.SearchView"
+			app:showAsAction="ifRoom|collapseActionView" />
+</menu>

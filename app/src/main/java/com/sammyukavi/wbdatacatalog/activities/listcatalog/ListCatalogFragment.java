@@ -24,29 +24,56 @@
 
 package com.sammyukavi.wbdatacatalog.activities.listcatalog;
 
-import com.sammyukavi.wbdatacatalog.BaseFragment;
+import com.sammyukavi.wbdatacatalog.activities.BaseFragment;
 import com.sammyukavi.wbdatacatalog.R;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
+import android.widget.ProgressBar;
 
 public class ListCatalogFragment extends BaseFragment<ListCatalogContract.Presenter>
 		implements ListCatalogContract.View {
 	
-	@Override
-	public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-		View mRootView = inflater.inflate(R.layout.fragment_list_catalog, container, false);
-		//Adding the Recycler view
-		LinearLayoutManager layoutManager = new LinearLayoutManager(this.getActivity());
-		return mRootView;
-	}
+	private ProgressBar loadingProgressBar;
+	private View viewsContainer;
 	
 	public static ListCatalogFragment newInstance() {
 		return new ListCatalogFragment();
+	}
+	
+	@Override
+	public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+		View mRootView = inflater.inflate(R.layout.fragment_list_catalog, container, false);
+		initializeViews(mRootView);
+		mPresenter.fetchCatalog();
+		return mRootView;
+	}
+	
+	private void initializeViews(View mRootView) {
+		loadingProgressBar = (ProgressBar) mRootView.findViewById(R.id.loadingProgressBar);
+		viewsContainer = mRootView.findViewById(R.id.viewsContainer);
+	}
+	
+	private void showProgressBar(boolean showProgressBar) {
+		if (showProgressBar) {
+			loadingProgressBar.setVisibility(View.VISIBLE);
+			viewsContainer.setVisibility(View.GONE);
+		} else {
+			loadingProgressBar.setVisibility(View.GONE);
+			viewsContainer.setVisibility(View.VISIBLE);
+		}
+	}
+	
+	@Override
+	public void blockUI() {
+		showProgressBar(true);
+	}
+	
+	@Override
+	public void unBlockUI() {
+		showProgressBar(false);
 	}
 }

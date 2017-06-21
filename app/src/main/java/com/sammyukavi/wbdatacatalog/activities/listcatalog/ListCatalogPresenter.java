@@ -24,34 +24,70 @@
 
 package com.sammyukavi.wbdatacatalog.activities.listcatalog;
 
-import com.sammyukavi.wbdatacatalog.BasePresenter;
+import com.sammyukavi.wbdatacatalog.activities.BasePresenter;
 import com.sammyukavi.wbdatacatalog.data.ListCatalogDataService;
+import com.sammyukavi.wbdatacatalog.data.api.PagingInfo;
+import com.sammyukavi.wbdatacatalog.models.Catalog;
+import com.sammyukavi.wbdatacatalog.utilities.ConsoleLogger;
 
 import android.support.annotation.NonNull;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class ListCatalogPresenter extends BasePresenter implements ListCatalogContract.Presenter {
 	
-	@NonNull
-	private ListCatalogContract.View findListCatalogView;
-	private int page = 0;
-	private int limit = 10;
+	private final PagingInfo pagingInfo;
+	private int resultsPerPage = 5;
+	private int startPage = 1;
+	private ListCatalogContract.View listCatalogView;
 	private ListCatalogDataService listCatalogDataService;
-	private boolean loading;
-	
-	public ListCatalogPresenter(@NonNull ListCatalogContract.View view, String lastQuery) {
-		this.findListCatalogView = view;
-		this.findListCatalogView.setPresenter(this);
-		this.listCatalogDataService = new ListCatalogDataService();
-	}
 	
 	public ListCatalogPresenter(@NonNull ListCatalogContract.View view) {
-		this.findListCatalogView = view;
-		this.findListCatalogView.setPresenter(this);
-		this.listCatalogDataService = new ListCatalogDataService();
+		this.listCatalogView = view;
+		this.listCatalogView.setPresenter(this);
+		listCatalogDataService = new ListCatalogDataService();
+		pagingInfo = new PagingInfo(startPage, resultsPerPage);
 	}
 	
 	@Override
 	public void subscribe() {
+		
 	}
 	
+	@Override
+	public void fetchCatalog() {
+		
+		listCatalogView.blockUI();
+		
+		Callback<Catalog> callback = new Callback<Catalog>() {
+			
+			@Override
+			public void onResponse(Call<Catalog> call, Response<Catalog> response) {
+				ConsoleLogger.dump(response.body().getTotal());
+			}
+			
+			@Override
+			public void onFailure(Call<Catalog> call, Throwable t) {
+				t.printStackTrace();
+			}
+		};
+		listCatalogDataService.getCatalog(pagingInfo, callback);
+	}
+	
+	public int getResultsPerPage() {
+		return resultsPerPage;
+	}
+	
+	public void setResultsPerPage(int resultsPerPage) {
+		this.resultsPerPage = resultsPerPage;
+	}
+	
+	public int getStartPage() {
+		return startPage;
+	}
+	
+	public void setStartPage(int startPage) {
+		this.startPage = startPage;
+	}
 }

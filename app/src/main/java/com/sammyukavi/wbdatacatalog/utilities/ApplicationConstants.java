@@ -22,23 +22,19 @@
  * SOFTWARE.
  */
 
-package com.sammyukavi.wbdatacatalog.activities.listcatalog;
+package com.sammyukavi.wbdatacatalog.utilities;
 
-import com.sammyukavi.wbdatacatalog.activities.BasePresenterContract;
-import com.sammyukavi.wbdatacatalog.activities.BaseView;
-
-public interface ListCatalogContract {
+public class ApplicationConstants {
 	
-	interface View extends BaseView<Presenter> {
-		
-		void blockUI();
-		
-		void unBlockUI();
+	public static String API_BASE_URL = "http://api.worldbank.org/v2/datacatalog/";
+	
+	public class UNITS {
+		public static final int READ_TIME_OUT_SECONDS = 120;
+		public static final int CONNECT_TIME_OUT_SECONDS = 120;
 	}
 	
-	interface Presenter extends BasePresenterContract {
-		
-		void fetchCatalog();
+	public class ErrorCodes {
+		public static final int SERVER_ERROR = 102;
+		public static final int NO_INTERNET = 106;
 	}
-	
 }
