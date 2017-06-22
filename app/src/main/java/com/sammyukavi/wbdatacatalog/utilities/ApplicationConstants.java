@@ -30,9 +30,27 @@ public class ApplicationConstants {
 	
 	public class StringBundles {
 		
+		public static final String CATALOG_ID = "catalog_id";
 		public static final String NAME = "name";
 		public static final String DESCRIPTION = "description";
-		public static final String DATACATALOG = "datacatalog";
+		public static final String URL = "url";
+		public static final String TYPE = "type";
+		public static final String LANGUAGES = "languagesupported";
+		public static final String PERIODICITY = "periodicity";
+		public static final String ECONOMY_COVERAGE = "economycoverage";
+		public static final String GRANULARITY = "granularity";
+		public static final String NUMBER_OF_ECONOMIES = "numberofeconomies";
+		public static final String TOPICS = "topics";
+		public static final String UPDATE_FREQUENCY = "updatefrequency";
+		public static final String UPDATE_SCHEDULE = "updateschedule";
+		public static final String LAST_REVISION_DATE = "lastrevisiondate";
+		public static final String CONTACT_DETAILS = "contactdetails";
+		public static final String BULK_DOWNLOAD = "bulkdownload";
+		public static final String CITE = "cite";
+		public static final String DETAIL_PAGE_URL = "detailpageurl";
+		public static final String POPULARITY = "popularity";
+		public static final String COVERAGE = "coverage";
+		
 	}
 	
 	public class Units {

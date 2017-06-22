@@ -16,16 +16,26 @@ package com.sammyukavi.wbdatacatalog.activities.showcatalogitem;
 
 import com.sammyukavi.wbdatacatalog.activities.BasePresenterContract;
 import com.sammyukavi.wbdatacatalog.activities.BaseView;
+import com.sammyukavi.wbdatacatalog.models.Catalog;
 
 public interface ShowCatalogItemContract {
 	
 	interface View extends BaseView<Presenter> {
 		
+		void blockUI();
 		
+		void unBlockUI();
+		
+		void updateUI(Catalog catalog);
+		
+		void showMessage(int messageId);
+		
+		void showAlert(int messageId);
 	}
 	
 	interface Presenter extends BasePresenterContract {
 		
+		void fetchItemSource(String id);
 		
 	}
 	

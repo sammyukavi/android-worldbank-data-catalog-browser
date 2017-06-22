@@ -32,26 +32,26 @@ import com.sammyukavi.wbdatacatalog.models.Catalog;
 import retrofit2.Call;
 import retrofit2.Callback;
 
-public class ListCatalogDataService {
+public class CatalogDataService {
 	
 	private final RestApi restApi;
 	
-	public ListCatalogDataService() {
+	public CatalogDataService() {
 		restApi = RestServiceBuilder.createService(RestApi.class);
 	}
 	
-	public void getCatalog(PagingInfo pagingInfo, Callback<Catalog> callback) {
+	public void getSources(PagingInfo pagingInfo, Callback<Catalog> callback) {
 		Call<Catalog> call = restApi.getFullCatalog(pagingInfo.getPage(), pagingInfo.getResults_per_page());
-		call.enqueue(callback);
-	}
-	
-	public void getCatalogSource(String id, PagingInfo pagingInfo, Callback<Catalog> callback) {
-		Call<Catalog> call = restApi.getSource(id, pagingInfo.getPage(), pagingInfo.getResults_per_page());
 		call.enqueue(callback);
 	}
 	
 	public void searchCatalog(String searchTerm, PagingInfo pagingInfo, Callback<Catalog> callback) {
 		Call<Catalog> call = restApi.searchCatalog(searchTerm, pagingInfo.getPage(), pagingInfo.getResults_per_page());
+		call.enqueue(callback);
+	}
+	
+	public void getCatalogById(String id, PagingInfo pagingInfo, Callback<Catalog> callback) {
+		Call<Catalog> call = restApi.getCatalogById(id, pagingInfo.getPage(), pagingInfo.getResults_per_page());
 		call.enqueue(callback);
 	}
 }

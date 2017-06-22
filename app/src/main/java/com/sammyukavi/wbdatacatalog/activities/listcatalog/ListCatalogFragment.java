@@ -191,5 +191,4 @@ public class ListCatalogFragment extends BaseFragment<ListCatalogContract.Presen
 		mPresenter.setPage(mMainCatalogPage);
 		mPresenter.fetchCatalog();
 	}
-	
 }

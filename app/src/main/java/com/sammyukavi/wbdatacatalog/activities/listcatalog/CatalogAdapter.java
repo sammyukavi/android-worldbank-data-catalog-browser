@@ -24,7 +24,7 @@
 
 package com.sammyukavi.wbdatacatalog.activities.listcatalog;
 
-import static com.sammyukavi.wbdatacatalog.utilities.ApplicationConstants.StringBundles.DATACATALOG;
+import static com.sammyukavi.wbdatacatalog.utilities.ApplicationConstants.StringBundles.CATALOG_ID;
 import static com.sammyukavi.wbdatacatalog.utilities.ApplicationConstants.StringBundles.DESCRIPTION;
 import static com.sammyukavi.wbdatacatalog.utilities.ApplicationConstants.StringBundles.NAME;
 
@@ -82,7 +82,7 @@ public class CatalogAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 			@Override
 			public void onClick(View v) {
 				Intent intent = new Intent(listCatalogActivity, ShowCatalogItemActivity.class);
-				intent.putExtra(DATACATALOG, String.valueOf(dataCatalog.getId()));
+				intent.putExtra(CATALOG_ID, String.valueOf(dataCatalog.getId()));
 				listCatalogActivity.startActivity(intent);
 			}
 		});

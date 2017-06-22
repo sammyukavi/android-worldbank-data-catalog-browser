@@ -48,5 +48,23 @@
 	<string name="no_description">No Description Available</string>
 	<string name="info">Info</string>
 	<string name="no_results">The server returned zero results</string>
+	<string name="languages_supported">Languages Supported</string>
+	<string name="url">URL</string>
+	<string name="type">Type</string>
+	<string name="periodicity">Periodicity</string>
+	<string name="economy_coverage">Economy Coverage</string>
+	<string name="granularity">Granularity</string>
+	<string name="number_of_economies">Number of Economies</string>
+	<string name="topics">Topics</string>
+	<string name="update_frequency">Update Frequency</string>
+	<string name="update_schedule">Update Schedule</string>
+	<string name="last_revision_date">Last Revision Date</string>
+	<string name="contact_details">Contact Details</string>
+	<string name="bulk_download">Bulk Download</string>
+	<string name="cite">Cite</string>
+	<string name="detail_page_url">Detail Page URL</string>
+	<string name="popularity">Popularity</string>
+	<string name="coverage">Coverage</string>
+	<string name="description">Description</string>
 
 </resources>

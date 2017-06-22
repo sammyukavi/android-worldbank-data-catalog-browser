@@ -14,34 +14,67 @@
 
 package com.sammyukavi.wbdatacatalog.activities.showcatalogitem;
 
+import static com.sammyukavi.wbdatacatalog.utilities.ApplicationConstants.MessageCodes.ERROR_OCCURED;
+import static com.sammyukavi.wbdatacatalog.utilities.ApplicationConstants.MessageCodes.SOURCE_NOT_EXIST;
+
 import com.sammyukavi.wbdatacatalog.activities.BasePresenter;
-import com.sammyukavi.wbdatacatalog.data.ListCatalogDataService;
+import com.sammyukavi.wbdatacatalog.data.CatalogDataService;
+import com.sammyukavi.wbdatacatalog.data.api.PagingInfo;
+import com.sammyukavi.wbdatacatalog.models.Catalog;
 
 import android.support.annotation.NonNull;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class ShowCatalogItemPresenter extends BasePresenter implements ShowCatalogItemContract.Presenter {
 	
 	@NonNull
 	private ShowCatalogItemContract.View findListCatalogView;
-	private int page = 0;
-	private int limit = 10;
-	private ListCatalogDataService listCatalogDataService;
-	private boolean loading;
-	
-	public ShowCatalogItemPresenter(@NonNull ShowCatalogItemContract.View view, String lastQuery) {
-		this.findListCatalogView = view;
-		this.findListCatalogView.setPresenter(this);
-		this.listCatalogDataService = new ListCatalogDataService();
-	}
+	private CatalogDataService catalogDataService;
+	private PagingInfo pagingInfo;
+	private int resultsPerPage = 10;
+	private int page = 1;
 	
 	public ShowCatalogItemPresenter(@NonNull ShowCatalogItemContract.View view) {
 		this.findListCatalogView = view;
 		this.findListCatalogView.setPresenter(this);
-		this.listCatalogDataService = new ListCatalogDataService();
+		this.catalogDataService = new CatalogDataService();
 	}
 	
 	@Override
 	public void subscribe() {
+		//left intentionally
+	}
+	
+	@Override
+	public void fetchItemSource(String id) {
+		findListCatalogView.blockUI();
+		pagingInfo = new PagingInfo(page, resultsPerPage);
+		Callback<Catalog> callback = new Callback<Catalog>() {
+			
+			@Override
+			public void onResponse(Call<Catalog> call, Response<Catalog> response) {
+				
+				findListCatalogView.unBlockUI();
+				if (response.isSuccessful()) {
+					findListCatalogView.updateUI(response.body());
+				} else {
+					findListCatalogView.showMessage(ERROR_OCCURED);
+				}
+			}
+			
+			@Override
+			public void onFailure(Call<Catalog> call, Throwable t) {
+				findListCatalogView.unBlockUI();
+				if (t.getClass().getName().equalsIgnoreCase("com.google.gson.JsonSyntaxException")) {
+					//end of results, no more results
+					findListCatalogView.showAlert(SOURCE_NOT_EXIST);
+				}
+				t.printStackTrace();
+			}
+		};
+		catalogDataService.getCatalogById(id, pagingInfo, callback);
 	}
 	
 }

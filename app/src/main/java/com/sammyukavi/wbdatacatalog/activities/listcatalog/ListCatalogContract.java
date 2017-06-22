@@ -41,16 +41,12 @@ public interface ListCatalogContract {
 		void updateCatalogList(Catalog catalog);
 		
 		void showSourceInHeader(boolean viewingSource);
-		
-		void showAlert(int messageCode);
 	}
 	
 	interface Presenter extends BasePresenterContract {
 		
 		void fetchCatalog();
-		
-		void fetchItemSource(String id);
-		
+				
 		void setPage(int page);
 		
 		void setResultsPerPage(int resultsPerPage);

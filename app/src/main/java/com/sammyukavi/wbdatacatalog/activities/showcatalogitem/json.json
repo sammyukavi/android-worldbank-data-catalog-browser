@@ -1,0 +1,113 @@
+{
+  "page": 1,
+  "pages": 1,
+  "per_page": "10",
+  "total": 1,
+  "datacatalog": [
+    {
+      "id": "1",
+      "metatype": [
+        {
+          "id": "name",
+          "value": "World Development Indicators"
+        },
+        {
+          "id": "acronym",
+          "value": "WDI"
+        },
+        {
+          "id": "description",
+          "value": "The primary World Bank collection of development indicators, compiled from officially-recognized international sources. It presents the most current and accurate global development data available, and includes national, regional and global estimates."
+        },
+        {
+          "id": "url",
+          "value": "http://databank.worldbank.org/data/views/variableSelection/selectvariables.aspx?source=world-development-indicators"
+        },
+        {
+          "id": "type",
+          "value": "Time series"
+        },
+        {
+          "id": "languagesupported",
+          "value": "English, Spanish, French, Arabic, Chinese"
+        },
+        {
+          "id": "periodicity",
+          "value": "Annual"
+        },
+        {
+          "id": "economycoverage",
+          "value": "WLD, EAP, ECA, LAC, MNA, SAS, SSA, HIC, LMY, IBRD, IDA"
+        },
+        {
+          "id": "granularity",
+          "value": "National, Regional"
+        },
+        {
+          "id": "numberofeconomies",
+          "value": "217"
+        },
+        {
+          "id": "topics",
+          "value": "Agriculture & Rural Development, Aid Effectiveness, Climate Change, Economy & Growth, Education, Energy & Mining, Environment, External Debt, Financial Sector, Gender, Health, Infrastructure, Labor & Social Protection, Poverty, Private Sector, Public Sector, Science & Technology, Social Development, Trade, Urban Development"
+        },
+        {
+          "id": "updatefrequency",
+          "value": "Quarterly"
+        },
+        {
+          "id": "updateschedule",
+          "value": "April, July, September, December"
+        },
+        {
+          "id": "lastrevisiondate",
+          "value": "31-May-2017"
+        },
+        {
+          "id": "contactdetails",
+          "value": "data@worldbank.org"
+        },
+        {
+          "id": "accessoption",
+          "value": "API, Bulk download, Mobile app, Query tool"
+        },
+        {
+          "id": "bulkdownload",
+          "value": "WDI (Excel)-ZIP (95 MB)=http://databank.worldbank.org/data/download/WDI_excel.zip=excel;WDI (CSV)-ZIP (53 MB)=http://databank.worldbank.org/data/download/WDI_csv.zip=csv;Information about WDI revisions (Excel) (72 KB)=http://databank.worldbank.org/data/download/WDIrevisions.xls=excel"
+        },
+        {
+          "id": "cite",
+          "value": "World Development Indicators, The World Bank"
+        },
+        {
+          "id": "detailpageurl",
+          "value": "http://data.worldbank.org/data-catalog/world-development-indicators"
+        },
+        {
+          "id": "popularity",
+          "value": "3765"
+        },
+        {
+          "id": "coverage",
+          "value": "1960 - 2016"
+        },
+        {
+          "id": "api",
+          "value": "1"
+        },
+        {
+          "id": "apiaccessurl",
+          "value": "http://data.worldbank.org/developers"
+        },
+        {
+          "id": "apisourceid",
+          "value": "2"
+        },
+        {
+          "id": "mobileapp",
+          "value": "iOS|https://itunes.apple.com/us/app/world-bank-datafinder/id349081196?mt=8^Android|https://play.google.com/store/apps/details?id=com.worldbank.datafinder&hl=en&rdid=com.worldbank.datafinder&rdot=1"
+        }
+      ]
+    }
+  ]
+}

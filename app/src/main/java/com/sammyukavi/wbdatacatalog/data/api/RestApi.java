@@ -36,10 +36,10 @@ public interface RestApi {
 	@GET("metatypes/name;description?format=json")
 	Call<Catalog> getFullCatalog(@Query("page") int page, @Query("per_page") int results_page);
 	
-	@GET("{id}/metatypes/name;description?format=json")
-	Call<Catalog> getSource(@Path("id") String id, @Query("page") int page, @Query("per_page") int results_page);
-	
 	@GET("search/{search_term}/?format=json")
 	Call<Catalog> searchCatalog(@Path("search_term") String searchTerm, @Query("page") int page, @Query("per_page") int
 			results_page);
+	
+	@GET("{id}/?format=json")
+	Call<Catalog> getCatalogById(@Path("id") String id, @Query("page") int page, @Query("per_page") int results_page);
 }

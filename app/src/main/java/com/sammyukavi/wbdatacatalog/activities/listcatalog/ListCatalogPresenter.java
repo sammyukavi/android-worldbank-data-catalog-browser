@@ -26,10 +26,9 @@ package com.sammyukavi.wbdatacatalog.activities.listcatalog;
 
 import static com.sammyukavi.wbdatacatalog.utilities.ApplicationConstants.MessageCodes.ERROR_OCCURED;
 import static com.sammyukavi.wbdatacatalog.utilities.ApplicationConstants.MessageCodes.NO_RESULTS;
-import static com.sammyukavi.wbdatacatalog.utilities.ApplicationConstants.MessageCodes.SOURCE_NOT_EXIST;
 
 import com.sammyukavi.wbdatacatalog.activities.BasePresenter;
-import com.sammyukavi.wbdatacatalog.data.ListCatalogDataService;
+import com.sammyukavi.wbdatacatalog.data.CatalogDataService;
 import com.sammyukavi.wbdatacatalog.data.api.PagingInfo;
 import com.sammyukavi.wbdatacatalog.models.Catalog;
 
@@ -44,12 +43,12 @@ public class ListCatalogPresenter extends BasePresenter implements ListCatalogCo
 	private int resultsPerPage = 10;
 	private int page = 1;
 	private ListCatalogContract.View listCatalogView;
-	private ListCatalogDataService listCatalogDataService;
+	private CatalogDataService catalogDataService;
 	
 	public ListCatalogPresenter(@NonNull ListCatalogContract.View view) {
 		this.listCatalogView = view;
 		this.listCatalogView.setPresenter(this);
-		listCatalogDataService = new ListCatalogDataService();
+		catalogDataService = new CatalogDataService();
 	}
 	
 	@Override
@@ -83,40 +82,10 @@ public class ListCatalogPresenter extends BasePresenter implements ListCatalogCo
 				t.printStackTrace();
 			}
 		};
-		listCatalogDataService.getCatalog(pagingInfo, callback);
+		catalogDataService.getSources(pagingInfo, callback);
 	}
 	
-	@Override
-	public void fetchItemSource(String id) {
-		listCatalogView.blockUI();
-		pagingInfo = new PagingInfo(page, resultsPerPage);
-		Callback<Catalog> callback = new Callback<Catalog>() {
-			
-			@Override
-			public void onResponse(Call<Catalog> call, Response<Catalog> response) {
-				
-				listCatalogView.unBlockUI();
-				if (response.isSuccessful()) {
-					listCatalogView.showSourceInHeader(true);
-					listCatalogView.updateCatalogList(response.body());
-				} else {
-					listCatalogView.showMessage(ERROR_OCCURED);
-				}
-			}
-			
-			@Override
-			public void onFailure(Call<Catalog> call, Throwable t) {
-				listCatalogView.unBlockUI();
-				if (t.getClass().getName().equalsIgnoreCase("com.google.gson.JsonSyntaxException")) {
-					//end of results, no more results
-					listCatalogView.showAlert(SOURCE_NOT_EXIST);
-					listCatalogView.updateCatalogList(new Catalog());
-				}
-				t.printStackTrace();
-			}
-		};
-		listCatalogDataService.getCatalogSource(id, pagingInfo, callback);
-	}
+	
 	
 	public int getResultsPerPage() {
 		return resultsPerPage;
@@ -152,7 +121,7 @@ public class ListCatalogPresenter extends BasePresenter implements ListCatalogCo
 				t.printStackTrace();
 			}
 		};
-		listCatalogDataService.searchCatalog(searchTerm, pagingInfo, callback);
+		catalogDataService.searchCatalog(searchTerm, pagingInfo, callback);
 	}
 	
 	public int getPage() {
