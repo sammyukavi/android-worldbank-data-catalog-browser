@@ -24,7 +24,9 @@
 
 package com.sammyukavi.wbdatacatalog.models;
 
-public class MetaType {
+import java.io.Serializable;
+
+public class MetaType implements Serializable {
 	
 	private String id;
 	

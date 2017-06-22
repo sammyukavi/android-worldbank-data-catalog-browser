@@ -148,7 +148,6 @@ public class ListCatalogFragment extends BaseFragment<ListCatalogContract.Presen
 				.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
 					
 					public void onClick(DialogInterface dialog, int which) {
-						listCatalogActivity.isViewingSource(false);
 						reloadCatalog();
 					}
 				})
@@ -161,7 +160,6 @@ public class ListCatalogFragment extends BaseFragment<ListCatalogContract.Presen
 	public void updateCatalogList(Catalog catalog) {
 		//update results count
 		mTotalResults.setText(getString(R.string.total_results, catalog.getTotal()));
-		
 		//create pagination
 		//paging starts with 1 anything below that is an error, don't update current page
 		if (catalog.getPage() > 0) {
@@ -182,11 +180,9 @@ public class ListCatalogFragment extends BaseFragment<ListCatalogContract.Presen
 	
 	@Override
 	public void showSourceInHeader(boolean viewingSource) {
-		listCatalogActivity.getSupportActionBar().setDisplayHomeAsUpEnabled(viewingSource);
 		if (viewingSource) {
 			mSourceTitle.setText(listCatalogActivity.getString(R.string.sources));
 		} else {
-			listCatalogActivity.getDrawerToggle().syncState();
 			mSourceTitle.setText(listCatalogActivity.getString(R.string.all_sources));
 		}
 	}

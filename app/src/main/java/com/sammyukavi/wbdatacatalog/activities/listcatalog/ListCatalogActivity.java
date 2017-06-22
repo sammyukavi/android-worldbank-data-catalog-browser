@@ -29,26 +29,22 @@ import com.sammyukavi.wbdatacatalog.activities.BaseActivity;
 
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.v4.view.GravityCompat;
 import android.support.v4.view.MenuItemCompat;
-import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.SearchView;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 
 public class ListCatalogActivity extends BaseActivity {
 	
 	public ListCatalogContract.Presenter mPresenter;
 	protected ListCatalogFragment listCatalogRecordFragment;
-	private boolean viewingSource = false;
 	private Handler mHandler = new Handler();
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		getLayoutInflater().inflate(R.layout.activity_list_catalog, frameLayout);
 		setTitle(R.string.app_name);
+		getLayoutInflater().inflate(R.layout.activity_list_catalog, frameLayout);
 		// Create fragment
 		listCatalogRecordFragment =
 				(ListCatalogFragment) getSupportFragmentManager().findFragmentById(R.id
@@ -60,29 +56,6 @@ public class ListCatalogActivity extends BaseActivity {
 			addFragmentToActivity(getSupportFragmentManager(), listCatalogRecordFragment, R.id.contentFrame);
 		}
 		mPresenter = new ListCatalogPresenter(listCatalogRecordFragment);
-		
-		toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				if (viewingSource) {
-					viewingSource = false;
-					listCatalogRecordFragment.reloadCatalog();
-				} else {
-					drawer.openDrawer(GravityCompat.START);
-				}
-			}
-		});
-	}
-	
-	@Override
-	public void onBackPressed() {
-		if (viewingSource) {
-			viewingSource = false;
-			listCatalogRecordFragment.reloadCatalog();
-		} else {
-			super.onBackPressed();
-		}
 	}
 	
 	@Override
@@ -132,17 +105,5 @@ public class ListCatalogActivity extends BaseActivity {
 		});
 		
 		return true;
-	}
-	
-	public void isViewingSource(boolean viewingSource) {
-		this.viewingSource = viewingSource;
-	}
-	
-	public boolean isViewingSource() {
-		return this.viewingSource;
-	}
-	
-	public ActionBarDrawerToggle getDrawerToggle() {
-		return drawerToggle;
 	}
 }

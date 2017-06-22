@@ -24,10 +24,17 @@
 
 package com.sammyukavi.wbdatacatalog.activities.listcatalog;
 
+import static com.sammyukavi.wbdatacatalog.utilities.ApplicationConstants.StringBundles.DATACATALOG;
+import static com.sammyukavi.wbdatacatalog.utilities.ApplicationConstants.StringBundles.DESCRIPTION;
+import static com.sammyukavi.wbdatacatalog.utilities.ApplicationConstants.StringBundles.NAME;
+
 import com.sammyukavi.wbdatacatalog.R;
+import com.sammyukavi.wbdatacatalog.activities.showcatalogitem.ShowCatalogItemActivity;
 import com.sammyukavi.wbdatacatalog.models.DataCatalog;
+import com.sammyukavi.wbdatacatalog.models.MetaType;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -60,24 +67,23 @@ public class CatalogAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 		final DataCatalog dataCatalog = this.dataCatalog[position];
 		CatalogViewHolder catalogViewHolder = (CatalogViewHolder) holder;
 		catalogViewHolder.datacatalogId.setText(String.valueOf(dataCatalog.getId()));
-		catalogViewHolder.name.setText(dataCatalog.getMetaType()[0].getValue());
-		try {
-			catalogViewHolder.description.setText(android.text.Html.fromHtml(dataCatalog.getMetaType()[1].getValue())
-					.toString().trim());
+		for (int index = 0; index < dataCatalog.getMetaType().length; index++) {
+			MetaType metaType = dataCatalog.getMetaType()[index];
+			if (metaType.getId().equalsIgnoreCase(NAME)) {
+				catalogViewHolder.name.setText(metaType.getValue());
+			}
+			if (metaType.getId().equalsIgnoreCase(DESCRIPTION)) {
+				catalogViewHolder.description.setText(android.text.Html.fromHtml(metaType.getValue()).toString().trim());
+			}
 		}
-		catch (ArrayIndexOutOfBoundsException ex) {
-			ex.printStackTrace();
-		}
-		if (listCatalogActivity.isViewingSource()) {
-			catalogViewHolder.moreFromSource.setVisibility(View.GONE);
-		}
+				
 		catalogViewHolder.moreFromSource.setOnClickListener(new View.OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
-				listCatalogActivity.isViewingSource(true);
-				listCatalogActivity.mPresenter.setPage(1);
-				listCatalogActivity.mPresenter.fetchItemSource(String.valueOf(dataCatalog.getId()));
+				Intent intent = new Intent(listCatalogActivity, ShowCatalogItemActivity.class);
+				intent.putExtra(DATACATALOG, String.valueOf(dataCatalog.getId()));
+				listCatalogActivity.startActivity(intent);
 			}
 		});
 	}
@@ -89,7 +95,7 @@ public class CatalogAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 	
 	private class CatalogViewHolder extends RecyclerView.ViewHolder {
 		
-		private TextView datacatalogId, name, description, moreFromSource, viewDatacatalog;
+		private TextView datacatalogId, name, description, moreFromSource;
 		
 		public CatalogViewHolder(View view) {
 			super(view);
@@ -97,7 +103,6 @@ public class CatalogAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 			name = (TextView) view.findViewById(R.id.name);
 			description = (TextView) view.findViewById(R.id.description);
 			moreFromSource = (TextView) view.findViewById(R.id.moreFromSource);
-			viewDatacatalog = (TextView) view.findViewById(R.id.viewDatacatalog);
 		}
 	}
 }

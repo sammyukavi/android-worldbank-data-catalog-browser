@@ -56,43 +56,21 @@
 					android:layout_gravity="center_vertical|end"
 					android:layout_height="wrap_content" />
 			
-			<LinearLayout
-					android:layout_marginTop="10dp"
-					android:weightSum="2"
-					android:layout_gravity="start"
-					android:gravity="start"
-					android:orientation="horizontal"
-					android:layout_width="match_parent"
-					android:layout_height="wrap_content">
-				
-				<TextView
-						android:id="@+id/moreFromSource"
-						android:layout_weight="1"
-						android:layout_gravity="start"
-						android:gravity="center"
-						android:layout_width="match_parent"
-						android:layout_height="wrap_content"
-						android:background="@drawable/load_similar_sources_button"
-						android:textColor="@color/green"
-						android:padding="@dimen/catalog_buttons_padding"
-						android:layout_marginRight="@dimen/catalog_buttons_margin"
-						android:layout_marginEnd="@dimen/catalog_buttons_margin"
-						android:text="@string/more_from_source" />
-				
-				<TextView
-						android:id="@+id/viewDatacatalog"
-						android:textColor="@color/color_white"
-						android:layout_weight="1"
-						android:layout_gravity="start"
-						android:gravity="center"
-						android:layout_width="match_parent"
-						android:layout_height="wrap_content"
-						android:background="@drawable/load_details_button"
-						android:padding="@dimen/catalog_buttons_padding"
-						android:layout_marginLeft="@dimen/catalog_buttons_margin"
-						android:layout_marginStart="@dimen/catalog_buttons_margin"
-						android:text="@string/view" />
-			</LinearLayout>
+			<TextView
+					android:id="@+id/moreFromSource"
+					android:layout_weight="1"
+					android:layout_gravity="end"
+					android:gravity="center"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:background="@drawable/load_similar_sources_button"
+					android:textColor="@color/green"
+					android:padding="@dimen/catalog_buttons_padding"
+					android:layout_marginRight="@dimen/catalog_buttons_margin"
+					android:layout_marginEnd="@dimen/catalog_buttons_margin"
+					android:text="@string/more_from_source" />
+		
+		
 		</LinearLayout>
 	</LinearLayout>
 

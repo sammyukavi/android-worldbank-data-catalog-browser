@@ -47,5 +47,6 @@
 	<string name="sources">Sources: Similar</string>
 	<string name="no_description">No Description Available</string>
 	<string name="info">Info</string>
+	<string name="no_results">The server returned zero results</string>
 
 </resources>

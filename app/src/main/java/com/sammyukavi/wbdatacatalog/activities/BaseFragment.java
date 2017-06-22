@@ -73,6 +73,9 @@ public class BaseFragment<T extends BasePresenterContract> extends Fragment impl
 			case ApplicationConstants.MessageCodes.SOURCE_NOT_EXIST:
 				message = getString(R.string.source_not_exist);
 				break;
+			case ApplicationConstants.MessageCodes.NO_RESULTS:
+				message = getString(R.string.no_results);
+				break;
 			default:
 				message = String.valueOf(messageCode);
 				break;

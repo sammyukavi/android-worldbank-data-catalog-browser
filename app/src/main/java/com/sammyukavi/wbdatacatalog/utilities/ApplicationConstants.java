@@ -28,6 +28,13 @@ public class ApplicationConstants {
 	
 	public static String API_BASE_URL = "http://api.worldbank.org/v2/datacatalog/";
 	
+	public class StringBundles {
+		
+		public static final String NAME = "name";
+		public static final String DESCRIPTION = "description";
+		public static final String DATACATALOG = "datacatalog";
+	}
+	
 	public class Units {
 		
 		public static final int READ_TIME_OUT_SECONDS = 120;
@@ -40,5 +47,6 @@ public class ApplicationConstants {
 		public static final int ERROR_OCCURED = 101;
 		public static final int SERVER_ERROR = 102;
 		public static final int SOURCE_NOT_EXIST = 103;
+		public static final int NO_RESULTS = 104;
 	}
 }

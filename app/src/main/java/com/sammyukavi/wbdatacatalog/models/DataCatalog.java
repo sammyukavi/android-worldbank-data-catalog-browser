@@ -24,7 +24,9 @@
 
 package com.sammyukavi.wbdatacatalog.models;
 
-public class DataCatalog {
+import java.io.Serializable;
+
+public class DataCatalog implements Serializable {
 	
 	private int id;
 	

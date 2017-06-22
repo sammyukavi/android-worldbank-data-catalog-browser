@@ -24,7 +24,9 @@
 
 package com.sammyukavi.wbdatacatalog.models;
 
-public class Catalog {
+import java.io.Serializable;
+
+public class Catalog implements Serializable {
 	
 	private int total;
 	

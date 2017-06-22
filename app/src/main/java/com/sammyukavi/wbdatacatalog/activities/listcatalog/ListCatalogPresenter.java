@@ -25,7 +25,7 @@
 package com.sammyukavi.wbdatacatalog.activities.listcatalog;
 
 import static com.sammyukavi.wbdatacatalog.utilities.ApplicationConstants.MessageCodes.ERROR_OCCURED;
-import static com.sammyukavi.wbdatacatalog.utilities.ApplicationConstants.MessageCodes.SERVER_ERROR;
+import static com.sammyukavi.wbdatacatalog.utilities.ApplicationConstants.MessageCodes.NO_RESULTS;
 import static com.sammyukavi.wbdatacatalog.utilities.ApplicationConstants.MessageCodes.SOURCE_NOT_EXIST;
 
 import com.sammyukavi.wbdatacatalog.activities.BasePresenter;
@@ -78,7 +78,8 @@ public class ListCatalogPresenter extends BasePresenter implements ListCatalogCo
 			public void onFailure(Call<Catalog> call, Throwable t) {
 				listCatalogView.unBlockUI();
 				listCatalogView.showSourceInHeader(false);
-				listCatalogView.showMessage(SERVER_ERROR);
+				listCatalogView.updateCatalogList(new Catalog());
+				listCatalogView.showMessage(NO_RESULTS);
 				t.printStackTrace();
 			}
 		};
@@ -146,7 +147,8 @@ public class ListCatalogPresenter extends BasePresenter implements ListCatalogCo
 			public void onFailure(Call<Catalog> call, Throwable t) {
 				listCatalogView.unBlockUI();
 				listCatalogView.showSourceInHeader(false);
-				listCatalogView.showMessage(SERVER_ERROR);
+				listCatalogView.updateCatalogList(new Catalog());
+				listCatalogView.showMessage(NO_RESULTS);
 				t.printStackTrace();
 			}
 		};
