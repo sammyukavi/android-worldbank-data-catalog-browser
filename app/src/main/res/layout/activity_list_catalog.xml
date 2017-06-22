@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ~ MIT License
   ~
   ~ Copyright (c) 2017 Sammy Ukavi
@@ -25,7 +24,6 @@
 
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
 		xmlns:tools="http://schemas.android.com/tools"
-		style="@style/BackgroundThemeEEE"
 		android:layout_width="match_parent"
 		android:layout_height="match_parent"
 		android:fitsSystemWindows="true"

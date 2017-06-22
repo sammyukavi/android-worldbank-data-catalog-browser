@@ -24,8 +24,8 @@
 
 package com.sammyukavi.wbdatacatalog.activities;
 
-import com.sammyukavi.wbdatacatalog.utilities.ApplicationConstants;
 import com.sammyukavi.wbdatacatalog.R;
+import com.sammyukavi.wbdatacatalog.utilities.ApplicationConstants;
 
 import android.support.v4.app.Fragment;
 
@@ -58,27 +58,48 @@ public class BaseFragment<T extends BasePresenterContract> extends Fragment impl
 		}
 	}
 	
-	public void createSnackbar(String message) {
+	public String getMessageFromCode(int messageCode) {
+		String message;
+		switch (messageCode) {
+			case ApplicationConstants.MessageCodes.ERROR_OCCURED:
+				message = getString(R.string.error_dialog_message);
+				break;
+			case ApplicationConstants.MessageCodes.SERVER_ERROR:
+				message = getString(R.string.server_error_dialog_message);
+				break;
+			case ApplicationConstants.MessageCodes.NO_INTERNET:
+				message = getString(R.string.offline_mode_not_supported);
+				break;
+			case ApplicationConstants.MessageCodes.SOURCE_NOT_EXIST:
+				message = getString(R.string.source_not_exist);
+				break;
+			default:
+				message = String.valueOf(messageCode);
+				break;
+		}
+		return message;
+	}
+	
+	private void createSnackbar(String message) {
 		((BaseActivity) getActivity()).createSnackbar(message);
 	}
 	
-	public void showError(int errorCode) {
-		
-		String message = "";
-		
-		switch (errorCode) {
-			case ApplicationConstants.ErrorCodes.SERVER_ERROR:
-				message = getString(R.string.server_error_dialog_message);
-				break;
-			case ApplicationConstants.ErrorCodes.NO_INTERNET:
-				message = getString(R.string.offline_mode_not_supported);
-				break;
-		}
-		
+	private void createAlert(String message) {
+		((BaseActivity) getActivity()).createAlert(message);
+	}
+	
+	public void showMessage(String message) {
 		createSnackbar(message);
 	}
 	
-	public void showError(String message) {
+	public void showMessage(int messageCode) {
+		String message = getMessageFromCode(messageCode);
 		createSnackbar(message);
 	}
+	
+	public void showAlert(int messageCode) {
+		String message = getMessageFromCode(messageCode);
+		createAlert(message);
+	}
+	
 }

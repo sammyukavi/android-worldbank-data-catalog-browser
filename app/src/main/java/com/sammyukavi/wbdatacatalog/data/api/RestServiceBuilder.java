@@ -25,10 +25,13 @@
 package com.sammyukavi.wbdatacatalog.data.api;
 
 import static com.sammyukavi.wbdatacatalog.utilities.ApplicationConstants.API_BASE_URL;
-import static com.sammyukavi.wbdatacatalog.utilities.ApplicationConstants.UNITS.CONNECT_TIME_OUT_SECONDS;
-import static com.sammyukavi.wbdatacatalog.utilities.ApplicationConstants.UNITS.READ_TIME_OUT_SECONDS;
+import static com.sammyukavi.wbdatacatalog.utilities.ApplicationConstants.Units.CONNECT_TIME_OUT_SECONDS;
+import static com.sammyukavi.wbdatacatalog.utilities.ApplicationConstants.Units.READ_TIME_OUT_SECONDS;
 
 import java.util.concurrent.TimeUnit;
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
@@ -53,9 +56,10 @@ public class RestServiceBuilder {
 		//add logging
 		HttpLoggingInterceptor httpLoggingInterceptor = new HttpLoggingInterceptor();
 		httpLoggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
-		
-		okHttpClientBuilder.readTimeout(READ_TIME_OUT_SECONDS, TimeUnit.SECONDS)
-				.connectTimeout(CONNECT_TIME_OUT_SECONDS, TimeUnit.SECONDS).addInterceptor(httpLoggingInterceptor)
+		okHttpClientBuilder.addInterceptor(httpLoggingInterceptor)
+				.readTimeout(READ_TIME_OUT_SECONDS, TimeUnit.SECONDS)
+				.connectTimeout(CONNECT_TIME_OUT_SECONDS, TimeUnit.SECONDS)
+				.retryOnConnectionFailure(true)
 				.build();
 		return okHttpClientBuilder.build();
 	}
@@ -67,7 +71,8 @@ public class RestServiceBuilder {
 	}
 	
 	private static GsonConverterFactory buildGsonConverter() {
-		return GsonConverterFactory.create();
+		Gson gson = new GsonBuilder().setLenient().create();
+		return GsonConverterFactory.create(gson);
 	}
 	
 }

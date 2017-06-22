@@ -27,7 +27,9 @@ package com.sammyukavi.wbdatacatalog.activities;
 import com.sammyukavi.wbdatacatalog.R;
 
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
@@ -39,6 +41,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -54,7 +57,9 @@ public abstract class BaseActivity extends AppCompatActivity implements Navigati
 	protected FragmentManager mFragmentManager;
 	protected DrawerLayout drawer;
 	protected FrameLayout frameLayout;
+	protected ActionBarDrawerToggle drawerToggle;
 	protected Toolbar toolbar;
+	protected NavigationView navigationView;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -114,12 +119,11 @@ public abstract class BaseActivity extends AppCompatActivity implements Navigati
 	
 	private void intitializeNavigationDrawer() {
 		drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-		ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+		drawerToggle = new ActionBarDrawerToggle(
 				this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-		drawer.setDrawerListener(toggle);
-		toggle.syncState();
-		
-		NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+		drawer.addDrawerListener(drawerToggle);
+		drawerToggle.syncState();
+		navigationView = (NavigationView) findViewById(R.id.nav_view);
 		navigationView.setNavigationItemSelectedListener(this);
 	}
 	
@@ -144,29 +148,21 @@ public abstract class BaseActivity extends AppCompatActivity implements Navigati
 	}
 	
 	public void createSnackbar(String message) {
-		
 		int colorWhite = ContextCompat.getColor(getApplicationContext(), R.color.color_white);
-		
 		// create instance
 		Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content), message, Snackbar.LENGTH_INDEFINITE);
-		
 		// set action button color
 		snackbar.setActionTextColor(colorWhite);
-		
 		// get snackbar view
 		View snackbarView = snackbar.getView();
-		
 		// change snackbar text color
 		int snackbarTextId = android.support.design.R.id.snackbar_text;
 		TextView textView = (TextView) snackbarView.findViewById(snackbarTextId);
 		textView.setTextColor(colorWhite);
-		
 		// change snackbar background
 		//snackbarView.setBackgroundColor(Color.MAGENTA);
-		
 		//change button text
 		snackbar.setActionTextColor(Color.YELLOW);
-		
 		snackbar.setAction(R.string.label_dismiss, new View.OnClickListener() {
 			
 			@Override
@@ -174,9 +170,7 @@ public abstract class BaseActivity extends AppCompatActivity implements Navigati
 				//snackbar.dismiss();
 			}
 		});
-		
 		snackbar.show();
-		
 	}
 	
 	public void createToast(String message) {
@@ -193,5 +187,30 @@ public abstract class BaseActivity extends AppCompatActivity implements Navigati
 			inputMethodManager.hideSoftInputFromWindow(
 					windowToken.getWindowToken(), 0);
 		}
+	}
+	
+	public void createAlert(String message) {
+		AlertDialog.Builder builder;
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+			builder = new AlertDialog.Builder(this, android.R.style.Theme_Material_Dialog_Alert);
+		} else {
+			builder = new AlertDialog.Builder(this);
+		}
+		builder.setTitle(getString(R.string.info))
+				.setMessage(message)
+				.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+					
+					public void onClick(DialogInterface dialog, int which) {
+						// continue with delete
+					}
+				})
+				.setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+					
+					public void onClick(DialogInterface dialog, int which) {
+						// do nothing
+					}
+				})
+				.setIcon(android.R.drawable.ic_dialog_alert)
+				.show();
 	}
 }

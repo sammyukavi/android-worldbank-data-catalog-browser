@@ -26,6 +26,7 @@ package com.sammyukavi.wbdatacatalog.activities.listcatalog;
 
 import com.sammyukavi.wbdatacatalog.activities.BasePresenterContract;
 import com.sammyukavi.wbdatacatalog.activities.BaseView;
+import com.sammyukavi.wbdatacatalog.models.Catalog;
 
 public interface ListCatalogContract {
 	
@@ -34,11 +35,27 @@ public interface ListCatalogContract {
 		void blockUI();
 		
 		void unBlockUI();
+		
+		void showMessage(int messageCode);
+		
+		void updateCatalogList(Catalog catalog);
+		
+		void showSourceInHeader(boolean viewingSource);
+		
+		void showAlert(int messageCode);
 	}
 	
 	interface Presenter extends BasePresenterContract {
 		
 		void fetchCatalog();
+		
+		void fetchItemSource(String id);
+		
+		void setPage(int page);
+		
+		void setResultsPerPage(int resultsPerPage);
+		
+		void search(String searchTerm);
 	}
 	
 }

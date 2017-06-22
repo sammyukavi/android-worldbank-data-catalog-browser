@@ -26,13 +26,13 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <group android:checkableBehavior="single">
         <item
-            android:icon="@mipmap/ic_launcher"
+            android:icon="@drawable/ic_launcher"
             android:title="@string/navigation_browse_catalog"/>
         <item
-            android:icon="@mipmap/ic_launcher"
+            android:icon="@drawable/ic_launcher"
             android:title="@string/navigation_about"/>
         <item
-            android:icon="@mipmap/ic_launcher"
+            android:icon="@drawable/ic_launcher"
             android:title="@string/navigation_help"/>
     </group>
 </menu>

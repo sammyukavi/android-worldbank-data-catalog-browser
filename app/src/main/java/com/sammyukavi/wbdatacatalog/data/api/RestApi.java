@@ -28,10 +28,18 @@ import com.sammyukavi.wbdatacatalog.models.Catalog;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
+import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface RestApi {
 	
 	@GET("metatypes/name;description?format=json")
 	Call<Catalog> getFullCatalog(@Query("page") int page, @Query("per_page") int results_page);
+	
+	@GET("{id}/metatypes/name;description?format=json")
+	Call<Catalog> getSource(@Path("id") String id, @Query("page") int page, @Query("per_page") int results_page);
+	
+	@GET("search/{search_term}/?format=json")
+	Call<Catalog> searchCatalog(@Path("search_term") String searchTerm, @Query("page") int page, @Query("per_page") int
+			results_page);
 }

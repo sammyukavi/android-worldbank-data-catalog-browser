@@ -24,21 +24,43 @@
 
 package com.sammyukavi.wbdatacatalog.activities.listcatalog;
 
-import com.sammyukavi.wbdatacatalog.activities.BaseFragment;
-import com.sammyukavi.wbdatacatalog.R;
+import java.util.ArrayList;
+import java.util.List;
 
+import com.sammyukavi.wbdatacatalog.R;
+import com.sammyukavi.wbdatacatalog.activities.BaseFragment;
+import com.sammyukavi.wbdatacatalog.models.Catalog;
+
+import android.content.DialogInterface;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.ProgressBar;
+import android.widget.Spinner;
+import android.widget.TextView;
 
 public class ListCatalogFragment extends BaseFragment<ListCatalogContract.Presenter>
 		implements ListCatalogContract.View {
 	
-	private ProgressBar loadingProgressBar;
-	private View viewsContainer;
+	private CatalogAdapter mCatalogAdapter;
+	private ProgressBar mLoadingProgressBar;
+	private View mViewsContainer, mRootView;
+	private TextView mSourceTitle;
+	private Spinner mPagesSpinner;
+	private int mCurrentPage = 1;
+	private ArrayAdapter<String> mPagesAdapter;
+	private List<String> mPagesList = new ArrayList<>();
+	private ListCatalogActivity listCatalogActivity;
+	private int mMainCatalogPage = 1;
+	private TextView mTotalResults;
 	
 	public static ListCatalogFragment newInstance() {
 		return new ListCatalogFragment();
@@ -46,24 +68,50 @@ public class ListCatalogFragment extends BaseFragment<ListCatalogContract.Presen
 	
 	@Override
 	public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-		View mRootView = inflater.inflate(R.layout.fragment_list_catalog, container, false);
-		initializeViews(mRootView);
+		mRootView = inflater.inflate(R.layout.fragment_list_catalog, container, false);
+		listCatalogActivity = (ListCatalogActivity) getActivity();
+		mPagesList.add(getString(R.string.page, 1));
+		initializeViews();
+		mPresenter.setPage(mCurrentPage);
+		mPresenter.setResultsPerPage(20);
 		mPresenter.fetchCatalog();
 		return mRootView;
 	}
 	
-	private void initializeViews(View mRootView) {
-		loadingProgressBar = (ProgressBar) mRootView.findViewById(R.id.loadingProgressBar);
-		viewsContainer = mRootView.findViewById(R.id.viewsContainer);
+	private void initializeViews() {
+		mLoadingProgressBar = (ProgressBar) mRootView.findViewById(R.id.loadingProgressBar);
+		mViewsContainer = mRootView.findViewById(R.id.viewsContainer);
+		mSourceTitle = (TextView) mRootView.findViewById(R.id.sourceTitle);
+		mTotalResults = (TextView) mRootView.findViewById(R.id.mTotalResults);
+		mPagesSpinner = (Spinner) mRootView.findViewById(R.id.pagesSpinner);
+		mPagesAdapter = new ArrayAdapter<>(getContext(), R.layout.simple_spinner_item, mPagesList);
+		mPagesSpinner.setAdapter(mPagesAdapter);
+		mPagesSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+			
+			@Override
+			public void onItemSelected(AdapterView<?> adapterView, View view, int arg2, long arg3) {
+				int index = (adapterView.getSelectedItemPosition()) + 1;
+				if (mCurrentPage != index) {
+					mMainCatalogPage = mCurrentPage = index;
+					mPresenter.setPage(index);
+					mPresenter.fetchCatalog();
+				}
+			}
+			
+			@Override
+			public void onNothingSelected(AdapterView<?> arg0) {
+			}
+		});
+		mPagesSpinner.setSelection(mCurrentPage - 1);
 	}
 	
 	private void showProgressBar(boolean showProgressBar) {
 		if (showProgressBar) {
-			loadingProgressBar.setVisibility(View.VISIBLE);
-			viewsContainer.setVisibility(View.GONE);
+			mLoadingProgressBar.setVisibility(View.VISIBLE);
+			mViewsContainer.setVisibility(View.GONE);
 		} else {
-			loadingProgressBar.setVisibility(View.GONE);
-			viewsContainer.setVisibility(View.VISIBLE);
+			mLoadingProgressBar.setVisibility(View.GONE);
+			mViewsContainer.setVisibility(View.VISIBLE);
 		}
 	}
 	
@@ -76,4 +124,76 @@ public class ListCatalogFragment extends BaseFragment<ListCatalogContract.Presen
 	public void unBlockUI() {
 		showProgressBar(false);
 	}
+	
+	@Override
+	public void showMessage(String message) {
+		super.showMessage(message);
+	}
+	
+	@Override
+	public void showMessage(int messageCode) {
+		super.showMessage(messageCode);
+	}
+	
+	@Override
+	public void showAlert(int messageCode) {
+		AlertDialog.Builder builder;
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+			builder = new AlertDialog.Builder(getContext(), android.R.style.Theme_Material_Dialog_Alert);
+		} else {
+			builder = new AlertDialog.Builder(getContext());
+		}
+		builder.setTitle(getString(R.string.info))
+				.setMessage(getMessageFromCode(messageCode))
+				.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+					
+					public void onClick(DialogInterface dialog, int which) {
+						listCatalogActivity.isViewingSource(false);
+						reloadCatalog();
+					}
+				})
+				.setIcon(android.R.drawable.ic_dialog_alert)
+				.setCancelable(false)
+				.show();
+	}
+	
+	@Override
+	public void updateCatalogList(Catalog catalog) {
+		//update results count
+		mTotalResults.setText(getString(R.string.total_results, catalog.getTotal()));
+		
+		//create pagination
+		//paging starts with 1 anything below that is an error, don't update current page
+		if (catalog.getPage() > 0) {
+			mCurrentPage = catalog.getPage();
+		}
+		mPagesList.clear();
+		for (int i = 0; i < catalog.getPages(); i++) {
+			mPagesList.add(getString(R.string.page, (i + 1)));
+		}
+		mPagesAdapter.notifyDataSetChanged();
+		mPagesSpinner.setSelection(mCurrentPage - 1);
+		//find view by id and attach adapter for the recyclerView
+		RecyclerView catalogList = (RecyclerView) mRootView.findViewById(R.id.catalogList);
+		catalogList.setLayoutManager(new LinearLayoutManager(getContext()));
+		mCatalogAdapter = new CatalogAdapter(catalog.getDatacatalog(), getActivity());
+		catalogList.setAdapter(mCatalogAdapter);
+	}
+	
+	@Override
+	public void showSourceInHeader(boolean viewingSource) {
+		listCatalogActivity.getSupportActionBar().setDisplayHomeAsUpEnabled(viewingSource);
+		if (viewingSource) {
+			mSourceTitle.setText(listCatalogActivity.getString(R.string.sources));
+		} else {
+			listCatalogActivity.getDrawerToggle().syncState();
+			mSourceTitle.setText(listCatalogActivity.getString(R.string.all_sources));
+		}
+	}
+	
+	public void reloadCatalog() {
+		mPresenter.setPage(mMainCatalogPage);
+		mPresenter.fetchCatalog();
+	}
+	
 }

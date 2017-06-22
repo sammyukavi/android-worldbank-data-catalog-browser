@@ -44,4 +44,14 @@ public class ListCatalogDataService {
 		Call<Catalog> call = restApi.getFullCatalog(pagingInfo.getPage(), pagingInfo.getResults_per_page());
 		call.enqueue(callback);
 	}
+	
+	public void getCatalogSource(String id, PagingInfo pagingInfo, Callback<Catalog> callback) {
+		Call<Catalog> call = restApi.getSource(id, pagingInfo.getPage(), pagingInfo.getResults_per_page());
+		call.enqueue(callback);
+	}
+	
+	public void searchCatalog(String searchTerm, PagingInfo pagingInfo, Callback<Catalog> callback) {
+		Call<Catalog> call = restApi.searchCatalog(searchTerm, pagingInfo.getPage(), pagingInfo.getResults_per_page());
+		call.enqueue(callback);
+	}
 }

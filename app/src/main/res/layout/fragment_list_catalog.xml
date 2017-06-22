@@ -25,6 +25,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
 		android:layout_width="match_parent"
 		android:layout_height="match_parent"
+		android:paddingBottom="10dp"
+		android:background="@color/gray"
 		android:gravity="center">
 	
 	<ProgressBar
@@ -43,7 +45,65 @@
 			android:layout_height="match_parent"
 			android:layout_alignParentLeft="true"
 			android:layout_alignParentStart="true">
-	
+		
+		<LinearLayout
+				android:weightSum="2"
+				android:id="@+id/pageHeader"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:background="@color/color_white"
+				android:paddingLeft="20dp"
+				android:paddingStart="20dp"
+				android:paddingRight="20dp"
+				android:paddingEnd="20dp"
+				android:paddingTop="10dp"
+				android:paddingBottom="10dp"
+				android:layout_marginBottom="0dp"
+				android:orientation="vertical">
+			
+			<LinearLayout
+					android:layout_gravity="start"
+					android:gravity="start"
+					android:orientation="horizontal"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content">
+				
+				<TextView
+						android:id="@+id/sourceTitle"
+						android:textStyle="bold"
+						android:textColor="@color/black"
+						android:textSize="15sp"
+						android:layout_marginTop="15dp"
+						android:layout_weight="1"
+						android:layout_width="match_parent"
+						android:text="@string/all_sources"
+						android:layout_height="wrap_content" />
+				
+				
+				<android.support.v7.widget.AppCompatSpinner
+						android:layout_weight="1"
+						android:layout_gravity="end"
+						android:gravity="end"
+						android:prompt="@string/jump_to_page"
+						android:id="@+id/pagesSpinner"
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						style="@style/Widget.AppCompat.Spinner.Underlined" />
+			</LinearLayout>
+			
+			<TextView
+					android:textColor="@color/black"
+					android:id="@+id/mTotalResults"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content" />
+		
+		</LinearLayout>
+		
+		
+		<android.support.v7.widget.RecyclerView
+				android:id="@+id/catalogList"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content" />
 	
 	</LinearLayout>
 
