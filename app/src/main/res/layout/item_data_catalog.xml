@@ -66,6 +66,7 @@
 					android:background="@drawable/load_similar_sources_button"
 					android:textColor="@color/green"
 					android:padding="@dimen/catalog_buttons_padding"
+					android:layout_marginTop="10dp"
 					android:layout_marginRight="@dimen/catalog_buttons_margin"
 					android:layout_marginEnd="@dimen/catalog_buttons_margin"
 					android:text="@string/more_from_source" />

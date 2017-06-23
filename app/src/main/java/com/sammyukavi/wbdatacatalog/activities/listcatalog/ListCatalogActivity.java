@@ -39,6 +39,7 @@ public class ListCatalogActivity extends BaseActivity {
 	protected ListCatalogContract.Presenter mPresenter;
 	protected ListCatalogFragment mListCatalogRecordFragment;
 	private Handler mHandler = new Handler();
+	private boolean mSearchPerformed = false;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -71,7 +72,9 @@ public class ListCatalogActivity extends BaseActivity {
 			
 			@Override
 			public boolean onMenuItemActionCollapse(MenuItem item) {
-				mListCatalogRecordFragment.reloadCatalog();
+				if (mSearchPerformed) {
+					mListCatalogRecordFragment.reloadCatalog();
+				}
 				return true;
 			}
 		});
@@ -81,6 +84,7 @@ public class ListCatalogActivity extends BaseActivity {
 			@Override
 			public boolean onQueryTextSubmit(String searchTerm) {
 				if (searchTerm.length() > 0) {
+					mSearchPerformed = true;
 					mPresenter.setPage(1);
 					mPresenter.search(searchTerm);
 				}

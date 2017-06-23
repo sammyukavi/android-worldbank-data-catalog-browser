@@ -164,7 +164,7 @@ public class ShowCatalogItemFragment extends BaseFragment<ShowCatalogItemContrac
 	}
 	
 	private View buildTextView(String title, String value) {
-		View view = LayoutInflater.from(getActivity()).inflate(R.layout.item_catalog, null);
+		View view = LayoutInflater.from(getActivity()).inflate(R.layout.item_catalog_metatype, null);
 		((TextView) view.findViewById(R.id.title)).setText(android.text.Html.fromHtml(title).toString().trim());
 		((TextView) view.findViewById(R.id.value)).setText(android.text.Html.fromHtml(value).toString().trim());
 		return view;
