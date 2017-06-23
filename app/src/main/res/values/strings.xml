@@ -26,17 +26,16 @@
 	<string name="app_name">World Bank Catalog</string>
 	<string name="error_dialog_message">An unknown error occurred</string>
 	<string name="server_error_dialog_message">A server error occurred</string>
-	<string name="offline_mode_not_supported">Offline Mode Supported</string>
+	<string name="offline_mode_not_supported">You need to be connected to the internet for this app to work</string>
 	<string name="source_not_exist">Unfortunately the api returns an error that says, The selected source does not
 		exist or cannot be found</string>
 	<string name="label_dismiss">Dismiss</string>
 	<string name="search">Search</string>
 	<string name="jump_to_page">Page</string>
-	<string name="more_from_source">Source</string>
+	<string name="more_from_source">More</string>
 	<string name="total_results">Total Results: %d</string>
 	<string name="page">Page: %d</string>
 	<string name="all_sources">Sources: All</string>
-	<string name="sources">Sources: Similar</string>
 	<string name="no_description">No Description Available</string>
 	<string name="info">Info</string>
 	<string name="no_results">The server returned zero results</string>
@@ -58,5 +57,7 @@
 	<string name="popularity">Popularity</string>
 	<string name="coverage">Coverage</string>
 	<string name="description">Description</string>
+	<string name="expand">Expand</string>
+	<string name="no_internet">An active internet connection is required. Switch on a connection and restart this app</string>
 
 </resources>

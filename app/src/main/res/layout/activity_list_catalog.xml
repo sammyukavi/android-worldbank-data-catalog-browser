@@ -22,27 +22,20 @@
   ~ SOFTWARE.
   -->
 
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
 		xmlns:tools="http://schemas.android.com/tools"
-		android:layout_width="match_parent"
-		android:layout_height="match_parent"
 		android:fitsSystemWindows="true"
 		android:orientation="vertical"
-		tools:context="com.sammyukavi.wbdatacatalog.activities.listcatalog.ListCatalogActivity">
+		tools:context="com.sammyukavi.wbdatacatalog.activities.listcatalog.ListCatalogActivity"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:focusable="true"
+		android:focusableInTouchMode="true">
 	
-	<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	<FrameLayout
+			android:id="@+id/contentFrame"
 			android:layout_width="match_parent"
-			android:layout_height="match_parent"
-			android:focusable="true"
-			android:focusableInTouchMode="true"
-			android:orientation="vertical">
-		
-		<FrameLayout
-				android:id="@+id/contentFrame"
-				android:layout_width="match_parent"
-				android:layout_height="match_parent" />
-	
-	</LinearLayout>
+			android:layout_height="match_parent" />
 
+</LinearLayout>
 
-</android.support.design.widget.CoordinatorLayout>

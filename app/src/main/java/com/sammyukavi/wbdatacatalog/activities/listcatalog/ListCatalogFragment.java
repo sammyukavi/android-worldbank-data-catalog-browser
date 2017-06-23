@@ -52,12 +52,11 @@ public class ListCatalogFragment extends BaseFragment<ListCatalogContract.Presen
 	
 	private CatalogAdapter mCatalogAdapter;
 	private ProgressBar mLoadingProgressBar;
-	private View mViewsContainer, mRootView;
-	private TextView mSourceTitle, mTotalResults;
+	private View mViewsContainer, mRootView, mHeader, mNoInternetMessage;
+	private TextView mTotalResults;
 	private Spinner mPagesSpinner;
 	private ArrayAdapter<String> mPagesAdapter;
 	private List<String> mPagesList = new ArrayList<>();
-	private ListCatalogActivity mListCatalogActivity;
 	private int mCurrentPage = 1, mMainCatalogPage = 1;
 	
 	public static ListCatalogFragment newInstance() {
@@ -68,7 +67,6 @@ public class ListCatalogFragment extends BaseFragment<ListCatalogContract.Presen
 	public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 		mRootView = inflater.inflate(R.layout.fragment_list_catalog, container, false);
 		initializeViews();
-		mListCatalogActivity = (ListCatalogActivity) getActivity();
 		mPagesList.add(getString(R.string.page, 1));
 		mPresenter.setPage(mCurrentPage);
 		mPresenter.setResultsPerPage(20);
@@ -79,7 +77,8 @@ public class ListCatalogFragment extends BaseFragment<ListCatalogContract.Presen
 	private void initializeViews() {
 		mLoadingProgressBar = (ProgressBar) mRootView.findViewById(R.id.loadingProgressBar);
 		mViewsContainer = mRootView.findViewById(R.id.viewsContainer);
-		mSourceTitle = (TextView) mRootView.findViewById(R.id.sourceTitle);
+		mHeader = mRootView.findViewById(R.id.header);
+		mNoInternetMessage = mRootView.findViewById(R.id.noInternetMessage);
 		mTotalResults = (TextView) mRootView.findViewById(R.id.mTotalResults);
 		mPagesSpinner = (Spinner) mRootView.findViewById(R.id.pagesSpinner);
 		mPagesAdapter = new ArrayAdapter<>(getContext(), R.layout.simple_spinner_item, mPagesList);
@@ -137,7 +136,7 @@ public class ListCatalogFragment extends BaseFragment<ListCatalogContract.Presen
 	public void showAlert(int messageCode) {
 		AlertDialog.Builder builder;
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-			builder = new AlertDialog.Builder(getContext(), android.R.style.Theme_Material_Dialog_Alert);
+			builder = new AlertDialog.Builder(getContext());
 		} else {
 			builder = new AlertDialog.Builder(getContext());
 		}
@@ -177,16 +176,18 @@ public class ListCatalogFragment extends BaseFragment<ListCatalogContract.Presen
 	}
 	
 	@Override
-	public void showSourceInHeader(boolean viewingSource) {
-		if (viewingSource) {
-			mSourceTitle.setText(mListCatalogActivity.getString(R.string.sources));
-		} else {
-			mSourceTitle.setText(mListCatalogActivity.getString(R.string.all_sources));
-		}
+	public void showHeader(boolean show) {
+		mHeader.setVisibility(show ? View.VISIBLE : View.GONE);
+	}
+	
+	@Override
+	public void showInternetRequired(boolean show) {
+		mNoInternetMessage.setVisibility(show ? View.VISIBLE : View.GONE);
 	}
 	
 	public void reloadCatalog() {
 		mPresenter.setPage(mMainCatalogPage);
 		mPresenter.fetchCatalog();
 	}
+	
 }

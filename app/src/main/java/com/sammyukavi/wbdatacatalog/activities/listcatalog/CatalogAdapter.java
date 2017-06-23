@@ -32,6 +32,7 @@ import com.sammyukavi.wbdatacatalog.R;
 import com.sammyukavi.wbdatacatalog.activities.showcatalogitem.ShowCatalogItemActivity;
 import com.sammyukavi.wbdatacatalog.models.DataCatalog;
 import com.sammyukavi.wbdatacatalog.models.MetaType;
+import com.sammyukavi.wbdatacatalog.utilities.StringUtils;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -39,6 +40,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 public class CatalogAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
@@ -65,7 +67,7 @@ public class CatalogAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 	@Override
 	public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
 		final DataCatalog dataCatalog = this.mDataCatalog[position];
-		CatalogViewHolder catalogViewHolder = (CatalogViewHolder) holder;
+		final CatalogViewHolder catalogViewHolder = (CatalogViewHolder) holder;
 		catalogViewHolder.mDataCatalogId.setText(String.valueOf(dataCatalog.getId()));
 		for (int index = 0; index < dataCatalog.getMetaType().length; index++) {
 			MetaType metaType = dataCatalog.getMetaType()[index];
@@ -73,10 +75,28 @@ public class CatalogAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 				catalogViewHolder.mName.setText(metaType.getValue());
 			}
 			if (metaType.getId().equalsIgnoreCase(DESCRIPTION)) {
+				catalogViewHolder.mSummary.setText(StringUtils.ellipsize(android.text.Html.fromHtml(metaType.getValue())
+						.toString().trim()));
 				catalogViewHolder.mDescription.setText(android.text.Html.fromHtml(metaType.getValue()).toString().trim());
 			}
 		}
-				
+		
+		catalogViewHolder.mExpandCollapseButton.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				if (catalogViewHolder.mDescription.getVisibility() == View.VISIBLE) {
+					catalogViewHolder.mSummary.setVisibility(View.VISIBLE);
+					catalogViewHolder.mDescription.setVisibility(View.GONE);
+					catalogViewHolder.mExpandCollapseButton.setImageResource(R.drawable.ic_angle_down);
+				} else {
+					catalogViewHolder.mSummary.setVisibility(View.GONE);
+					catalogViewHolder.mDescription.setVisibility(View.VISIBLE);
+					catalogViewHolder.mExpandCollapseButton.setImageResource(R.drawable.ic_angle_up);
+				}
+			}
+		});
+		
 		catalogViewHolder.mMore.setOnClickListener(new View.OnClickListener() {
 			
 			@Override
@@ -95,14 +115,17 @@ public class CatalogAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 	
 	private class CatalogViewHolder extends RecyclerView.ViewHolder {
 		
-		private TextView mDataCatalogId, mName, mDescription, mMore;
+		private TextView mDataCatalogId, mName, mSummary, mDescription, mMore;
+		private ImageView mExpandCollapseButton;
 		
 		public CatalogViewHolder(View view) {
 			super(view);
 			mDataCatalogId = (TextView) view.findViewById(R.id.datacatalogId);
 			mName = (TextView) view.findViewById(R.id.name);
+			mSummary = (TextView) view.findViewById(R.id.summary);
 			mDescription = (TextView) view.findViewById(R.id.description);
 			mMore = (TextView) view.findViewById(R.id.moreFromSource);
+			mExpandCollapseButton = (ImageView) view.findViewById(R.id.expandCollapseButton);
 		}
 	}
 }

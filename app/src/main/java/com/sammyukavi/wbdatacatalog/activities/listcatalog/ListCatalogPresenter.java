@@ -25,12 +25,14 @@
 package com.sammyukavi.wbdatacatalog.activities.listcatalog;
 
 import static com.sammyukavi.wbdatacatalog.utilities.ApplicationConstants.MessageCodes.ERROR_OCCURED;
+import static com.sammyukavi.wbdatacatalog.utilities.ApplicationConstants.MessageCodes.NO_INTERNET;
 import static com.sammyukavi.wbdatacatalog.utilities.ApplicationConstants.MessageCodes.NO_RESULTS;
 
 import com.sammyukavi.wbdatacatalog.activities.BasePresenter;
 import com.sammyukavi.wbdatacatalog.data.CatalogDataService;
 import com.sammyukavi.wbdatacatalog.data.api.PagingInfo;
 import com.sammyukavi.wbdatacatalog.models.Catalog;
+import com.sammyukavi.wbdatacatalog.utilities.NetworkUtils;
 
 import android.support.annotation.NonNull;
 import retrofit2.Call;
@@ -51,6 +53,22 @@ public class ListCatalogPresenter extends BasePresenter implements ListCatalogCo
 		mCatalogDataService = new CatalogDataService();
 	}
 	
+	public int getResultsPerPage() {
+		return mResultsPerPage;
+	}
+	
+	public void setResultsPerPage(int resultsPerPage) {
+		this.mResultsPerPage = resultsPerPage;
+	}
+	
+	public int getPage() {
+		return mPage;
+	}
+	
+	public void setPage(int page) {
+		this.mPage = page;
+	}
+	
 	@Override
 	public void subscribe() {
 		//left intentionally blank
@@ -65,7 +83,6 @@ public class ListCatalogPresenter extends BasePresenter implements ListCatalogCo
 			@Override
 			public void onResponse(Call<Catalog> call, Response<Catalog> response) {
 				mListCatalogView.unBlockUI();
-				mListCatalogView.showSourceInHeader(false);
 				if (response.isSuccessful()) {
 					mListCatalogView.updateCatalogList(response.body());
 				} else {
@@ -76,21 +93,21 @@ public class ListCatalogPresenter extends BasePresenter implements ListCatalogCo
 			@Override
 			public void onFailure(Call<Catalog> call, Throwable t) {
 				mListCatalogView.unBlockUI();
-				mListCatalogView.showSourceInHeader(false);
 				mListCatalogView.updateCatalogList(new Catalog());
 				mListCatalogView.showMessage(NO_RESULTS);
 				t.printStackTrace();
 			}
 		};
-		mCatalogDataService.getSources(mPagingInfo, callback);
-	}
-	
-	public int getResultsPerPage() {
-		return mResultsPerPage;
-	}
-	
-	public void setResultsPerPage(int resultsPerPage) {
-		this.mResultsPerPage = resultsPerPage;
+		if (NetworkUtils.isOnline(mListCatalogView.getContext())) {
+			mListCatalogView.showHeader(true);
+			mListCatalogView.showInternetRequired(false);
+			mCatalogDataService.getSources(mPagingInfo, callback);
+		} else {
+			mListCatalogView.unBlockUI();
+			mListCatalogView.showHeader(false);
+			mListCatalogView.showInternetRequired(true);
+			mListCatalogView.showMessage(NO_INTERNET);
+		}
 	}
 	
 	@Override
@@ -102,7 +119,6 @@ public class ListCatalogPresenter extends BasePresenter implements ListCatalogCo
 			@Override
 			public void onResponse(Call<Catalog> call, Response<Catalog> response) {
 				mListCatalogView.unBlockUI();
-				mListCatalogView.showSourceInHeader(false);
 				if (response.isSuccessful()) {
 					mListCatalogView.updateCatalogList(response.body());
 				} else {
@@ -113,20 +129,22 @@ public class ListCatalogPresenter extends BasePresenter implements ListCatalogCo
 			@Override
 			public void onFailure(Call<Catalog> call, Throwable t) {
 				mListCatalogView.unBlockUI();
-				mListCatalogView.showSourceInHeader(false);
 				mListCatalogView.updateCatalogList(new Catalog());
 				mListCatalogView.showMessage(NO_RESULTS);
 				t.printStackTrace();
 			}
 		};
-		mCatalogDataService.searchCatalog(searchTerm, mPagingInfo, callback);
-	}
-	
-	public int getPage() {
-		return mPage;
-	}
-	
-	public void setPage(int page) {
-		this.mPage = page;
+		
+		if (NetworkUtils.isOnline(mListCatalogView.getContext())) {
+			mListCatalogView.showHeader(true);
+			mListCatalogView.showInternetRequired(false);
+			mCatalogDataService.searchCatalog(searchTerm, mPagingInfo, callback);
+		} else {
+			mListCatalogView.unBlockUI();
+			mListCatalogView.showHeader(false);
+			mListCatalogView.showInternetRequired(true);
+			mListCatalogView.showMessage(NO_INTERNET);
+		}
+		
 	}
 }

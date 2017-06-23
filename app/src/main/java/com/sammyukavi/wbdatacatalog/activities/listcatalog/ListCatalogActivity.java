@@ -110,4 +110,5 @@ public class ListCatalogActivity extends BaseActivity {
 		
 		return true;
 	}
+	
 }

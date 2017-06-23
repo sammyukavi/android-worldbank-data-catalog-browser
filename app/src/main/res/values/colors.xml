@@ -23,12 +23,11 @@
   -->
 
 <resources>
-	<color name="colorPrimary">#3F51B5</color>
 	<color name="colorPrimaryDark">#303F9F</color>
 	<color name="colorAccent">#FF4081</color>
 	<color name="color_white">#FFF</color>
 	<color name="gray">#CCC</color>
 	<color name="green">#0f9d58</color>
 	<color name="black">#000000</color>
-	<color name="blue">#0676f5</color>
+	<color name="links">#22a6f5</color>
 </resources>

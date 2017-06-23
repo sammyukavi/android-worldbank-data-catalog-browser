@@ -123,7 +123,7 @@ public abstract class BaseActivity extends AppCompatActivity {
 		});
 		snackbar.show();
 	}
-		
+	
 	public void createAlert(String message) {
 		AlertDialog.Builder builder;
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {

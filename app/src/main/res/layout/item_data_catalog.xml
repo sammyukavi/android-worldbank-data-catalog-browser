@@ -4,13 +4,13 @@
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
 		android:background="@color/color_white"
-		android:layout_marginStart="5dp"
-		android:layout_marginLeft="5dp"
-		android:layout_marginEnd="5dp"
-		android:layout_marginRight="5dp"
-		android:layout_marginBottom="0dp"
-		android:layout_marginTop="5dp"
-		card_view:cardElevation="5dp"
+		android:layout_marginStart="@dimen/five"
+		android:layout_marginLeft="@dimen/five"
+		android:layout_marginEnd="@dimen/five"
+		android:layout_marginRight="@dimen/five"
+		android:layout_marginBottom="@dimen/zero"
+		android:layout_marginTop="@dimen/five"
+		card_view:cardElevation="@dimen/five"
 		card_view:cardUseCompatPadding="true">
 	
 	<LinearLayout
@@ -24,54 +24,72 @@
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content" />
 		
-		<TextView
-				android:layout_margin="10dp"
-				android:id="@+id/name"
-				android:textStyle="bold"
-				android:textColor="@color/black"
-				android:textSize="15sp"
-				android:layout_width="match_parent"
-				android:layout_height="wrap_content" />
-		
-		<View
-				android:layout_width="match_parent"
-				android:layout_height="1dp"
-				android:background="@color/gray" />
-		
 		<LinearLayout
-				android:paddingLeft="10dp"
-				android:paddingRight="10dp"
-				android:paddingBottom="10dp"
+				android:orientation="horizontal"
+				android:weightSum="1"
+				android:padding="@dimen/ten"
 				android:layout_width="match_parent"
-				android:orientation="vertical"
 				android:layout_height="wrap_content">
 			
 			<TextView
-					android:layout_marginTop="10dp"
-					android:autoLink="web|email|map"
-					android:id="@+id/description"
-					android:textColorLink="@color/blue"
-					android:text="@string/no_description"
+					android:id="@+id/name"
 					android:layout_width="match_parent"
-					android:layout_gravity="center_vertical|end"
-					android:layout_height="wrap_content" />
+					android:layout_height="wrap_content"
+					android:textStyle="bold"
+					android:textColor="@color/black"
+					android:textSize="@dimen/toolbar_text_size"
+					android:layout_weight="0.1" />
 			
-			<TextView
-					android:id="@+id/moreFromSource"
-					android:layout_weight="1"
-					android:layout_gravity="end"
-					android:gravity="center"
-					android:layout_width="wrap_content"
-					android:layout_height="0dp"
-					android:background="@drawable/load_similar_sources_button"
-					android:textColor="@color/green"
-					android:padding="@dimen/catalog_buttons_padding"
-					android:layout_marginTop="10dp"
-					android:layout_marginRight="@dimen/catalog_buttons_margin"
-					android:layout_marginEnd="@dimen/catalog_buttons_margin"
-					android:text="@string/more_from_source" />
-		
+			<ImageView
+					android:id="@+id/expandCollapseButton"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:contentDescription="@string/expand"
+					android:src="@drawable/ic_angle_down"
+					android:layout_weight="0.9" />
 		</LinearLayout>
+		
+		<View
+				android:layout_width="match_parent"
+				android:layout_height="@dimen/one"
+				android:background="@color/gray" />
+		
+		<TextView
+				android:layout_margin="@dimen/ten"
+				android:id="@+id/summary"
+				android:textColorLink="@color/links"
+				android:text="@string/no_description"
+				android:layout_width="match_parent"
+				android:layout_gravity="center_vertical|end"
+				android:layout_height="wrap_content" />
+		
+		<TextView
+				android:visibility="gone"
+				android:layout_margin="@dimen/ten"
+				android:autoLink="web|email|map"
+				android:id="@+id/description"
+				android:textColorLink="@color/links"
+				android:text="@string/no_description"
+				android:layout_width="match_parent"
+				android:layout_gravity="center_vertical|end"
+				android:layout_height="wrap_content" />
+		
+		
+		<TextView
+				android:id="@+id/moreFromSource"
+				android:layout_weight="1"
+				android:layout_gravity="end"
+				android:gravity="center"
+				android:layout_width="wrap_content"
+				android:layout_height="0dp"
+				android:background="@drawable/load_similar_sources_button"
+				android:textColor="@color/green"
+				android:padding="@dimen/catalog_buttons_padding"
+				android:layout_marginTop="@dimen/ten"
+				android:layout_marginBottom="@dimen/ten"
+				android:layout_marginRight="@dimen/catalog_buttons_margin"
+				android:layout_marginEnd="@dimen/catalog_buttons_margin"
+				android:text="@string/more_from_source" />
 	</LinearLayout>
 
 </android.support.v7.widget.CardView>

@@ -54,8 +54,8 @@ public class ShowCatalogItemFragment extends BaseFragment<ShowCatalogItemContrac
 		implements ShowCatalogItemContract.View {
 	
 	private ProgressBar mLoadingProgressBar;
-	private View mViewsContainer, mRootView;
-	private TextView mName, mDescription;
+	private View mViewsContainer, mRootView, mHeader, mNoInternetMessage;
+	private TextView mName;
 	private LinearLayout mFieldsContainer;
 	
 	public static ShowCatalogItemFragment newInstance() {
@@ -73,9 +73,10 @@ public class ShowCatalogItemFragment extends BaseFragment<ShowCatalogItemContrac
 	
 	private void initializeViews() {
 		mLoadingProgressBar = (ProgressBar) mRootView.findViewById(R.id.loadingProgressBar);
+		mHeader = mRootView.findViewById(R.id.header);
+		mNoInternetMessage = mRootView.findViewById(R.id.noInternetMessage);
 		mViewsContainer = mRootView.findViewById(R.id.viewsContainer);
 		mName = (TextView) mRootView.findViewById(R.id.name);
-		mDescription = (TextView) mRootView.findViewById(R.id.description);
 		mFieldsContainer = (LinearLayout) mRootView.findViewById(R.id.fieldsContainer);
 	}
 	
@@ -107,7 +108,8 @@ public class ShowCatalogItemFragment extends BaseFragment<ShowCatalogItemContrac
 			if (metaType.getId().equalsIgnoreCase(NAME)) {
 				mName.setText(android.text.Html.fromHtml(metaType.getValue()).toString().trim());
 			} else if (metaType.getId().equalsIgnoreCase(DESCRIPTION)) {
-				mDescription.setText(android.text.Html.fromHtml(metaType.getValue()).toString().trim());
+				mFieldsContainer.addView(buildTextView(getActivity().getString(R.string.description), metaType
+						.getValue()));
 			} else if (metaType.getId().equalsIgnoreCase(URL)) {
 				mFieldsContainer.addView(buildTextView(getActivity().getString(R.string.url), metaType
 						.getValue()));
@@ -161,6 +163,16 @@ public class ShowCatalogItemFragment extends BaseFragment<ShowCatalogItemContrac
 						.getValue()));
 			}
 		}
+	}
+	
+	@Override
+	public void showHeader(boolean show) {
+		mHeader.setVisibility(show ? View.VISIBLE : View.GONE);
+	}
+	
+	@Override
+	public void showInternetRequired(boolean show) {
+		mNoInternetMessage.setVisibility(show ? View.VISIBLE : View.GONE);
 	}
 	
 	private View buildTextView(String title, String value) {

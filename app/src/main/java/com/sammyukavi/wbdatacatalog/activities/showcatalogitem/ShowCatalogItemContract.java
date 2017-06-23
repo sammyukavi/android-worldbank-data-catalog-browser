@@ -18,6 +18,8 @@ import com.sammyukavi.wbdatacatalog.activities.BasePresenterContract;
 import com.sammyukavi.wbdatacatalog.activities.BaseView;
 import com.sammyukavi.wbdatacatalog.models.Catalog;
 
+import android.content.Context;
+
 public interface ShowCatalogItemContract {
 	
 	interface View extends BaseView<Presenter> {
@@ -31,6 +33,12 @@ public interface ShowCatalogItemContract {
 		void showMessage(int messageId);
 		
 		void showAlert(int messageId);
+		
+		Context getContext();
+		
+		void showHeader(boolean show);
+		
+		void showInternetRequired(boolean show);
 	}
 	
 	interface Presenter extends BasePresenterContract {

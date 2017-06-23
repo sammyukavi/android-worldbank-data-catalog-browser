@@ -22,42 +22,39 @@
  * SOFTWARE.
  */
 
-package com.sammyukavi.wbdatacatalog.activities.listcatalog;
+package com.sammyukavi.wbdatacatalog.utilities;
 
-import com.sammyukavi.wbdatacatalog.activities.BasePresenterContract;
-import com.sammyukavi.wbdatacatalog.activities.BaseView;
-import com.sammyukavi.wbdatacatalog.models.Catalog;
-
-import android.content.Context;
-
-public interface ListCatalogContract {
+public class StringUtils {
 	
-	interface View extends BaseView<Presenter> {
-		
-		void blockUI();
-		
-		void unBlockUI();
-		
-		void showMessage(int messageCode);
-		
-		void updateCatalogList(Catalog catalog);
-				
-		Context getContext();
-		
-		void showHeader(boolean show);
-		
-		void showInternetRequired(boolean show);
+	private final static String NON_THIN = "[^iIl1\\.,']";
+	
+	private static int textWidth(String str) {
+		return (int) (str.length() - str.replaceAll(NON_THIN, "").length() / 2);
 	}
 	
-	interface Presenter extends BasePresenterContract {
-		
-		void fetchCatalog();
-				
-		void setPage(int page);
-		
-		void setResultsPerPage(int resultsPerPage);
-		
-		void search(String searchTerm);
+	public static String ellipsize(String text) {
+		return ellipsize(text, 100);
 	}
 	
+	public static String ellipsize(String text, int max) {
+		if (textWidth(text) <= max) {
+			return text;
+		}
+		int end = text.lastIndexOf(' ', max - 3);
+		// Just one long word. Chop it off.
+		if (end == -1) {
+			return text.substring(0, max - 3) + "...";
+		}
+		// Step forward as long as textWidth allows.
+		int newEnd = end;
+		do {
+			end = newEnd;
+			newEnd = text.indexOf(' ', end + 1);
+			// No more spaces.
+			if (newEnd == -1) {
+				newEnd = text.length();
+			}
+		} while (textWidth(text.substring(0, newEnd) + "...") < max);
+		return text.substring(0, end) + "...";
+	}
 }

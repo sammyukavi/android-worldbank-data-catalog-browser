@@ -15,11 +15,13 @@
 package com.sammyukavi.wbdatacatalog.activities.showcatalogitem;
 
 import static com.sammyukavi.wbdatacatalog.utilities.ApplicationConstants.MessageCodes.ERROR_OCCURED;
+import static com.sammyukavi.wbdatacatalog.utilities.ApplicationConstants.MessageCodes.NO_INTERNET;
 import static com.sammyukavi.wbdatacatalog.utilities.ApplicationConstants.MessageCodes.SOURCE_NOT_EXIST;
 
 import com.sammyukavi.wbdatacatalog.activities.BasePresenter;
 import com.sammyukavi.wbdatacatalog.data.CatalogDataService;
 import com.sammyukavi.wbdatacatalog.models.Catalog;
+import com.sammyukavi.wbdatacatalog.utilities.NetworkUtils;
 
 import android.support.annotation.NonNull;
 import retrofit2.Call;
@@ -68,8 +70,18 @@ public class ShowCatalogItemPresenter extends BasePresenter implements ShowCatal
 				}
 				t.printStackTrace();
 			}
-		};
-		catalogDataService.getCatalogById(id, callback);
+		};		
+		
+		if (NetworkUtils.isOnline(findListCatalogView.getContext())) {
+			findListCatalogView.showHeader(true);
+			findListCatalogView.showInternetRequired(false);
+			catalogDataService.getCatalogById(id, callback);
+		} else {
+			findListCatalogView.unBlockUI();
+			findListCatalogView.showHeader(false);
+			findListCatalogView.showInternetRequired(true);
+			findListCatalogView.showMessage(NO_INTERNET);
+		}
 	}
 	
 }

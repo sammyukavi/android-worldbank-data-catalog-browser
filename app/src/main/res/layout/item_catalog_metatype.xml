@@ -26,13 +26,13 @@
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
 		android:background="@color/color_white"
-		android:layout_marginStart="5dp"
-		android:layout_marginLeft="5dp"
-		android:layout_marginEnd="5dp"
-		android:layout_marginRight="5dp"
+		android:layout_marginStart="@dimen/five"
+		android:layout_marginLeft="@dimen/five"
+		android:layout_marginEnd="@dimen/five"
+		android:layout_marginRight="@dimen/five"
 		android:layout_marginBottom="0dp"
-		android:layout_marginTop="5dp"
-		card_view:cardElevation="5dp"
+		android:layout_marginTop="@dimen/five"
+		card_view:cardElevation="@dimen/five"
 		card_view:cardUseCompatPadding="true">
 	
 	<LinearLayout
@@ -40,8 +40,8 @@
 			android:paddingRight="10dp"
 			android:paddingEnd="10dp"
 			android:paddingStart="10dp"
-			android:paddingTop="5dp"
-			android:paddingBottom="5dp"
+			android:paddingTop="@dimen/five"
+			android:paddingBottom="@dimen/five"
 			android:layout_width="match_parent"
 			android:orientation="vertical"
 			android:layout_height="wrap_content">
@@ -50,7 +50,7 @@
 		<TextView
 				android:textStyle="bold"
 				android:textColor="@color/black"
-				android:textSize="15sp"
+				android:textSize="@dimen/toolbar_text_size"
 				android:id="@+id/title"
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content" />
@@ -66,7 +66,7 @@
 				android:id="@+id/value"
 				android:autoLink="web|email|map"
 				android:layout_gravity="center_vertical|end"
-				android:textColorLink="@color/blue"
+				android:textColorLink="@color/links"
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content" />
 	
