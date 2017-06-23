@@ -83,7 +83,7 @@ public class BaseFragment<T extends BasePresenterContract> extends Fragment impl
 		return message;
 	}
 	
-	private void createSnackbar(String message) {
+	private void createSnackBar(String message) {
 		((BaseActivity) getActivity()).createSnackbar(message);
 	}
 	
@@ -92,12 +92,12 @@ public class BaseFragment<T extends BasePresenterContract> extends Fragment impl
 	}
 	
 	public void showMessage(String message) {
-		createSnackbar(message);
+		createSnackBar(message);
 	}
 	
 	public void showMessage(int messageCode) {
 		String message = getMessageFromCode(messageCode);
-		createSnackbar(message);
+		createSnackBar(message);
 	}
 	
 	public void showAlert(int messageCode) {

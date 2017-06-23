@@ -19,7 +19,6 @@ import static com.sammyukavi.wbdatacatalog.utilities.ApplicationConstants.Messag
 
 import com.sammyukavi.wbdatacatalog.activities.BasePresenter;
 import com.sammyukavi.wbdatacatalog.data.CatalogDataService;
-import com.sammyukavi.wbdatacatalog.data.api.PagingInfo;
 import com.sammyukavi.wbdatacatalog.models.Catalog;
 
 import android.support.annotation.NonNull;
@@ -32,9 +31,6 @@ public class ShowCatalogItemPresenter extends BasePresenter implements ShowCatal
 	@NonNull
 	private ShowCatalogItemContract.View findListCatalogView;
 	private CatalogDataService catalogDataService;
-	private PagingInfo pagingInfo;
-	private int resultsPerPage = 10;
-	private int page = 1;
 	
 	public ShowCatalogItemPresenter(@NonNull ShowCatalogItemContract.View view) {
 		this.findListCatalogView = view;
@@ -48,9 +44,8 @@ public class ShowCatalogItemPresenter extends BasePresenter implements ShowCatal
 	}
 	
 	@Override
-	public void fetchItemSource(String id) {
+	public void fetchItemSource(int id) {
 		findListCatalogView.blockUI();
-		pagingInfo = new PagingInfo(page, resultsPerPage);
 		Callback<Catalog> callback = new Callback<Catalog>() {
 			
 			@Override
@@ -74,7 +69,7 @@ public class ShowCatalogItemPresenter extends BasePresenter implements ShowCatal
 				t.printStackTrace();
 			}
 		};
-		catalogDataService.getCatalogById(id, pagingInfo, callback);
+		catalogDataService.getCatalogById(id, callback);
 	}
 	
 }

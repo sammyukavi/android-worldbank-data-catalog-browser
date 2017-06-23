@@ -41,5 +41,5 @@ public interface RestApi {
 			results_page);
 	
 	@GET("{id}/?format=json")
-	Call<Catalog> getCatalogById(@Path("id") String id, @Query("page") int page, @Query("per_page") int results_page);
+	Call<Catalog> getCatalogById(@Path("id") int id);
 }

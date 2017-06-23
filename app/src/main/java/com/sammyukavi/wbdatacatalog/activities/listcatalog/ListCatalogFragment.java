@@ -53,14 +53,12 @@ public class ListCatalogFragment extends BaseFragment<ListCatalogContract.Presen
 	private CatalogAdapter mCatalogAdapter;
 	private ProgressBar mLoadingProgressBar;
 	private View mViewsContainer, mRootView;
-	private TextView mSourceTitle;
+	private TextView mSourceTitle, mTotalResults;
 	private Spinner mPagesSpinner;
-	private int mCurrentPage = 1;
 	private ArrayAdapter<String> mPagesAdapter;
 	private List<String> mPagesList = new ArrayList<>();
-	private ListCatalogActivity listCatalogActivity;
-	private int mMainCatalogPage = 1;
-	private TextView mTotalResults;
+	private ListCatalogActivity mListCatalogActivity;
+	private int mCurrentPage = 1, mMainCatalogPage = 1;
 	
 	public static ListCatalogFragment newInstance() {
 		return new ListCatalogFragment();
@@ -69,9 +67,9 @@ public class ListCatalogFragment extends BaseFragment<ListCatalogContract.Presen
 	@Override
 	public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 		mRootView = inflater.inflate(R.layout.fragment_list_catalog, container, false);
-		listCatalogActivity = (ListCatalogActivity) getActivity();
-		mPagesList.add(getString(R.string.page, 1));
 		initializeViews();
+		mListCatalogActivity = (ListCatalogActivity) getActivity();
+		mPagesList.add(getString(R.string.page, 1));
 		mPresenter.setPage(mCurrentPage);
 		mPresenter.setResultsPerPage(20);
 		mPresenter.fetchCatalog();
@@ -181,9 +179,9 @@ public class ListCatalogFragment extends BaseFragment<ListCatalogContract.Presen
 	@Override
 	public void showSourceInHeader(boolean viewingSource) {
 		if (viewingSource) {
-			mSourceTitle.setText(listCatalogActivity.getString(R.string.sources));
+			mSourceTitle.setText(mListCatalogActivity.getString(R.string.sources));
 		} else {
-			mSourceTitle.setText(listCatalogActivity.getString(R.string.all_sources));
+			mSourceTitle.setText(mListCatalogActivity.getString(R.string.all_sources));
 		}
 	}
 	

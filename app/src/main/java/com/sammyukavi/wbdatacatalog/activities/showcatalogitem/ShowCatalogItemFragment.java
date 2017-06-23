@@ -67,7 +67,7 @@ public class ShowCatalogItemFragment extends BaseFragment<ShowCatalogItemContrac
 		mRootView = inflater.inflate(R.layout.fragment_show_catalog_item, container, false);
 		initializeViews();
 		String sourceId = getActivity().getIntent().getExtras().getString(CATALOG_ID);
-		mPresenter.fetchItemSource(sourceId);
+		mPresenter.fetchItemSource(Integer.parseInt(sourceId));
 		return mRootView;
 	}
 	

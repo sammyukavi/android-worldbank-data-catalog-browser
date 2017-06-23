@@ -43,12 +43,12 @@ import android.widget.TextView;
 
 public class CatalogAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 	
-	private ListCatalogActivity listCatalogActivity;
-	private DataCatalog[] dataCatalog;
+	private ListCatalogActivity mListCatalogActivity;
+	private DataCatalog[] mDataCatalog;
 	
-	public CatalogAdapter(DataCatalog[] dataCatalog, Activity activity) {
-		this.dataCatalog = dataCatalog;
-		this.listCatalogActivity = ((ListCatalogActivity) activity);
+	public CatalogAdapter(DataCatalog[] mDataCatalog, Activity activity) {
+		this.mDataCatalog = mDataCatalog;
+		this.mListCatalogActivity = ((ListCatalogActivity) activity);
 	}
 	
 	@Override
@@ -58,51 +58,51 @@ public class CatalogAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 	
 	@Override
 	public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-		View view = LayoutInflater.from(listCatalogActivity).inflate(R.layout.item_data_catalog, parent, false);
+		View view = LayoutInflater.from(mListCatalogActivity).inflate(R.layout.item_data_catalog, parent, false);
 		return new CatalogViewHolder(view);
 	}
 	
 	@Override
 	public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-		final DataCatalog dataCatalog = this.dataCatalog[position];
+		final DataCatalog dataCatalog = this.mDataCatalog[position];
 		CatalogViewHolder catalogViewHolder = (CatalogViewHolder) holder;
-		catalogViewHolder.datacatalogId.setText(String.valueOf(dataCatalog.getId()));
+		catalogViewHolder.mDataCatalogId.setText(String.valueOf(dataCatalog.getId()));
 		for (int index = 0; index < dataCatalog.getMetaType().length; index++) {
 			MetaType metaType = dataCatalog.getMetaType()[index];
 			if (metaType.getId().equalsIgnoreCase(NAME)) {
-				catalogViewHolder.name.setText(metaType.getValue());
+				catalogViewHolder.mName.setText(metaType.getValue());
 			}
 			if (metaType.getId().equalsIgnoreCase(DESCRIPTION)) {
-				catalogViewHolder.description.setText(android.text.Html.fromHtml(metaType.getValue()).toString().trim());
+				catalogViewHolder.mDescription.setText(android.text.Html.fromHtml(metaType.getValue()).toString().trim());
 			}
 		}
 				
-		catalogViewHolder.moreFromSource.setOnClickListener(new View.OnClickListener() {
+		catalogViewHolder.mMore.setOnClickListener(new View.OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
-				Intent intent = new Intent(listCatalogActivity, ShowCatalogItemActivity.class);
+				Intent intent = new Intent(mListCatalogActivity, ShowCatalogItemActivity.class);
 				intent.putExtra(CATALOG_ID, String.valueOf(dataCatalog.getId()));
-				listCatalogActivity.startActivity(intent);
+				mListCatalogActivity.startActivity(intent);
 			}
 		});
 	}
 	
 	@Override
 	public int getItemCount() {
-		return dataCatalog == null ? 0 : dataCatalog.length;
+		return mDataCatalog == null ? 0 : mDataCatalog.length;
 	}
 	
 	private class CatalogViewHolder extends RecyclerView.ViewHolder {
 		
-		private TextView datacatalogId, name, description, moreFromSource;
+		private TextView mDataCatalogId, mName, mDescription, mMore;
 		
 		public CatalogViewHolder(View view) {
 			super(view);
-			datacatalogId = (TextView) view.findViewById(R.id.datacatalogId);
-			name = (TextView) view.findViewById(R.id.name);
-			description = (TextView) view.findViewById(R.id.description);
-			moreFromSource = (TextView) view.findViewById(R.id.moreFromSource);
+			mDataCatalogId = (TextView) view.findViewById(R.id.datacatalogId);
+			mName = (TextView) view.findViewById(R.id.name);
+			mDescription = (TextView) view.findViewById(R.id.description);
+			mMore = (TextView) view.findViewById(R.id.moreFromSource);
 		}
 	}
 }

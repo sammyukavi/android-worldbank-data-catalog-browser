@@ -35,7 +35,7 @@ public interface ShowCatalogItemContract {
 	
 	interface Presenter extends BasePresenterContract {
 		
-		void fetchItemSource(String id);
+		void fetchItemSource(int id);
 		
 	}
 	

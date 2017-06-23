@@ -7,19 +7,17 @@ import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 
 public class ShowCatalogItemActivity extends BaseActivity {
 	
-	public ShowCatalogItemContract.Presenter mPresenter;
-	ShowCatalogItemFragment showCatalogItemFragment;
+	private ShowCatalogItemFragment showCatalogItemFragment;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setTitle(R.string.app_name);
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-		getLayoutInflater().inflate(R.layout.activity_show_catalog_item, frameLayout);
+		getLayoutInflater().inflate(R.layout.activity_show_catalog_item, mFrameLayout);
 		// Create fragment
 		showCatalogItemFragment = (ShowCatalogItemFragment) getSupportFragmentManager().findFragmentById(
 				R.id.contentFrame);
@@ -29,16 +27,7 @@ public class ShowCatalogItemActivity extends BaseActivity {
 		if (!showCatalogItemFragment.isActive()) {
 			addFragmentToActivity(getSupportFragmentManager(), showCatalogItemFragment, R.id.contentFrame);
 		}
-		mPresenter = new ShowCatalogItemPresenter(showCatalogItemFragment);
-		
-		//set listener when back button is pressed on the screen
-		toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				onBackPressed();
-			}
-		});
+		new ShowCatalogItemPresenter(showCatalogItemFragment);
 	}
 	
 	public boolean onCreateOptionsMenu(Menu menu) {

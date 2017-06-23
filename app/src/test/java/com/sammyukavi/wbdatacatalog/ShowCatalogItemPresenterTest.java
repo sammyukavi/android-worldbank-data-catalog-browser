@@ -24,7 +24,6 @@
 
 package com.sammyukavi.wbdatacatalog;
 
-import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -32,7 +31,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
-import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PowerMockIgnore;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
@@ -53,7 +51,7 @@ import android.test.mock.MockContext;
 @PrepareForTest({ ApplicationConstants.class, NetworkUtils.class, RestServiceBuilder.class })
 @PowerMockIgnore("javax.net.ssl.*")
 
-public class ListCatalogPresenterTest extends UnitTestBase {
+public class ShowCatalogItemPresenterTest extends UnitTestBase {
 	
 	@Mock
 	private RestApi restApi;
@@ -70,51 +68,19 @@ public class ListCatalogPresenterTest extends UnitTestBase {
 		presenter = new ListCatalogPresenter(view);
 		context = new MockContext();
 		verify(view).setPresenter(presenter);
-		mockStaticMethods();
 	}
 	
 	@Test
-	public void shouldFetchOnlineCatalog_allOK() {
+	public void shouldFetchOneItem_OK() {
 		presenter.fetchCatalog();
 		verify(view).blockUI();
-		when(restApi.getFullCatalog(1, 1)).thenReturn(mockSuccessCall(new Catalog()));
+		when(restApi.getCatalogById(1)).thenReturn(mockSuccessCall(new Catalog()));
 	}
 	
 	@Test
 	public void shouldFetchOnlineCatalog_Error() {
 		presenter.fetchCatalog();
 		verify(view).blockUI();
-		when(restApi.getFullCatalog(1000, 1)).thenReturn(this.<Catalog>mockFailureCall());
-	}
-	
-	@Test
-	public void shouldSearchOnlineCatalog_allOK() {
-		presenter.setPage(1);
-		presenter.setResultsPerPage(1);
-		presenter.search("kenya");
-		verify(view).blockUI();
-		when(restApi.searchCatalog("kenya", 1, 1)).thenReturn(mockSuccessCall(new Catalog()));
-	}
-	
-	@Test
-	public void shouldSearchOnlineCatalog_Error() {
-		presenter.setPage(1000);
-		presenter.setResultsPerPage(1000);
-		presenter.search("kenya");
-		verify(view).blockUI();
-		when(restApi.searchCatalog("kenya", 1000, 1000)).thenReturn(this.<Catalog>mockFailureCall());
-	}
-	
-	@Test
-	public void shouldShowUserIsOnline() {
-		PowerMockito.when(NetworkUtils.isOnline(context)).thenReturn(true);
-	}
-	
-	private void mockStaticMethods() {
-		PowerMockito.mockStatic(ApplicationConstants.class);
-		PowerMockito.mockStatic(NetworkUtils.class);
-		when(ApplicationConstants.getBaseURL()).thenReturn(ApplicationConstants.API_BASE_URL);
-		PowerMockito.mockStatic(RestServiceBuilder.class);
-		PowerMockito.when(RestServiceBuilder.createService(any(Class.class))).thenReturn(restApi);
+		when(restApi.getCatalogById(-1)).thenReturn(this.<Catalog>mockFailureCall());
 	}
 }

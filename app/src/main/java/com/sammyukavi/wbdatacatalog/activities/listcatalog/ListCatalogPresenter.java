@@ -39,16 +39,16 @@ import retrofit2.Response;
 
 public class ListCatalogPresenter extends BasePresenter implements ListCatalogContract.Presenter {
 	
-	private PagingInfo pagingInfo;
-	private int resultsPerPage = 10;
-	private int page = 1;
-	private ListCatalogContract.View listCatalogView;
-	private CatalogDataService catalogDataService;
+	private PagingInfo mPagingInfo;
+	private int mResultsPerPage = 10;
+	private int mPage = 1;
+	private ListCatalogContract.View mListCatalogView;
+	private CatalogDataService mCatalogDataService;
 	
 	public ListCatalogPresenter(@NonNull ListCatalogContract.View view) {
-		this.listCatalogView = view;
-		this.listCatalogView.setPresenter(this);
-		catalogDataService = new CatalogDataService();
+		this.mListCatalogView = view;
+		this.mListCatalogView.setPresenter(this);
+		mCatalogDataService = new CatalogDataService();
 	}
 	
 	@Override
@@ -58,77 +58,75 @@ public class ListCatalogPresenter extends BasePresenter implements ListCatalogCo
 	
 	@Override
 	public void fetchCatalog() {
-		listCatalogView.blockUI();
-		pagingInfo = new PagingInfo(page, resultsPerPage);
+		mListCatalogView.blockUI();
+		mPagingInfo = new PagingInfo(mPage, mResultsPerPage);
 		Callback<Catalog> callback = new Callback<Catalog>() {
 			
 			@Override
 			public void onResponse(Call<Catalog> call, Response<Catalog> response) {
-				listCatalogView.unBlockUI();
-				listCatalogView.showSourceInHeader(false);
+				mListCatalogView.unBlockUI();
+				mListCatalogView.showSourceInHeader(false);
 				if (response.isSuccessful()) {
-					listCatalogView.updateCatalogList(response.body());
+					mListCatalogView.updateCatalogList(response.body());
 				} else {
-					listCatalogView.showMessage(ERROR_OCCURED);
+					mListCatalogView.showMessage(ERROR_OCCURED);
 				}
 			}
 			
 			@Override
 			public void onFailure(Call<Catalog> call, Throwable t) {
-				listCatalogView.unBlockUI();
-				listCatalogView.showSourceInHeader(false);
-				listCatalogView.updateCatalogList(new Catalog());
-				listCatalogView.showMessage(NO_RESULTS);
+				mListCatalogView.unBlockUI();
+				mListCatalogView.showSourceInHeader(false);
+				mListCatalogView.updateCatalogList(new Catalog());
+				mListCatalogView.showMessage(NO_RESULTS);
 				t.printStackTrace();
 			}
 		};
-		catalogDataService.getSources(pagingInfo, callback);
+		mCatalogDataService.getSources(mPagingInfo, callback);
 	}
 	
-	
-	
 	public int getResultsPerPage() {
-		return resultsPerPage;
+		return mResultsPerPage;
 	}
 	
 	public void setResultsPerPage(int resultsPerPage) {
-		this.resultsPerPage = resultsPerPage;
+		this.mResultsPerPage = resultsPerPage;
 	}
 	
 	@Override
 	public void search(String searchTerm) {
-		listCatalogView.blockUI();
-		pagingInfo = new PagingInfo(page, resultsPerPage);
+		mListCatalogView.blockUI();
+		mPagingInfo = new PagingInfo(mPage, mResultsPerPage);
 		Callback<Catalog> callback = new Callback<Catalog>() {
 			
 			@Override
 			public void onResponse(Call<Catalog> call, Response<Catalog> response) {
-				listCatalogView.unBlockUI();
-				listCatalogView.showSourceInHeader(false);
+				mListCatalogView.unBlockUI();
+				mListCatalogView.showSourceInHeader(false);
 				if (response.isSuccessful()) {
-					listCatalogView.updateCatalogList(response.body());
+					mListCatalogView.updateCatalogList(response.body());
 				} else {
-					listCatalogView.showMessage(ERROR_OCCURED);
+					mListCatalogView.showMessage(ERROR_OCCURED);
 				}
 			}
 			
 			@Override
 			public void onFailure(Call<Catalog> call, Throwable t) {
-				listCatalogView.unBlockUI();
-				listCatalogView.showSourceInHeader(false);
-				listCatalogView.updateCatalogList(new Catalog());
-				listCatalogView.showMessage(NO_RESULTS);
+				mListCatalogView.unBlockUI();
+				mListCatalogView.showSourceInHeader(false);
+				mListCatalogView.updateCatalogList(new Catalog());
+				mListCatalogView.showMessage(NO_RESULTS);
 				t.printStackTrace();
 			}
 		};
-		catalogDataService.searchCatalog(searchTerm, pagingInfo, callback);
+		mCatalogDataService.searchCatalog(searchTerm, mPagingInfo, callback);
 	}
 	
 	public int getPage() {
-		return page;
+		return mPage;
 	}
 	
 	public void setPage(int page) {
-		this.page = page;
+		this.mPage = page;
 	}
 }

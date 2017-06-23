@@ -36,26 +36,26 @@ import android.view.MenuItem;
 
 public class ListCatalogActivity extends BaseActivity {
 	
-	public ListCatalogContract.Presenter mPresenter;
-	protected ListCatalogFragment listCatalogRecordFragment;
+	protected ListCatalogContract.Presenter mPresenter;
+	protected ListCatalogFragment mListCatalogRecordFragment;
 	private Handler mHandler = new Handler();
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setTitle(R.string.app_name);
-		getLayoutInflater().inflate(R.layout.activity_list_catalog, frameLayout);
+		getLayoutInflater().inflate(R.layout.activity_list_catalog, mFrameLayout);
 		// Create fragment
-		listCatalogRecordFragment =
+		mListCatalogRecordFragment =
 				(ListCatalogFragment) getSupportFragmentManager().findFragmentById(R.id
 						.contentFrame);
-		if (listCatalogRecordFragment == null) {
-			listCatalogRecordFragment = ListCatalogFragment.newInstance();
+		if (mListCatalogRecordFragment == null) {
+			mListCatalogRecordFragment = ListCatalogFragment.newInstance();
 		}
-		if (!listCatalogRecordFragment.isActive()) {
-			addFragmentToActivity(getSupportFragmentManager(), listCatalogRecordFragment, R.id.contentFrame);
+		if (!mListCatalogRecordFragment.isActive()) {
+			addFragmentToActivity(getSupportFragmentManager(), mListCatalogRecordFragment, R.id.contentFrame);
 		}
-		mPresenter = new ListCatalogPresenter(listCatalogRecordFragment);
+		mPresenter = new ListCatalogPresenter(mListCatalogRecordFragment);
 	}
 	
 	@Override
@@ -71,7 +71,7 @@ public class ListCatalogActivity extends BaseActivity {
 			
 			@Override
 			public boolean onMenuItemActionCollapse(MenuItem item) {
-				listCatalogRecordFragment.reloadCatalog();
+				mListCatalogRecordFragment.reloadCatalog();
 				return true;
 			}
 		});

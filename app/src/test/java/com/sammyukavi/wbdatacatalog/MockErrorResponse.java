@@ -39,6 +39,10 @@ public class MockErrorResponse<T> implements Call<T> {
 		response = Response.error(code, new MockResponseBody());
 	}
 	
+	public MockErrorResponse(Object resource) {
+		response = Response.error(404, new MockResponseBody());
+	}
+	
 	@Override
 	public Response<T> execute() throws IOException {
 		return null;

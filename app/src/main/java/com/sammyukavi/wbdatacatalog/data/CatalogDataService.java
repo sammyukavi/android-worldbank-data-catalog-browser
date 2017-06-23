@@ -50,8 +50,8 @@ public class CatalogDataService {
 		call.enqueue(callback);
 	}
 	
-	public void getCatalogById(String id, PagingInfo pagingInfo, Callback<Catalog> callback) {
-		Call<Catalog> call = restApi.getCatalogById(id, pagingInfo.getPage(), pagingInfo.getResults_per_page());
+	public void getCatalogById(int id, Callback<Catalog> callback) {
+		Call<Catalog> call = restApi.getCatalogById(id);
 		call.enqueue(callback);
 	}
 }
