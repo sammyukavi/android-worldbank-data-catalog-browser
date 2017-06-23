@@ -28,6 +28,10 @@ public class ApplicationConstants {
 	
 	public static String API_BASE_URL = "http://api.worldbank.org/v2/datacatalog/";
 	
+	public static String getBaseURL() {
+		return API_BASE_URL;
+	}
+	
 	public class StringBundles {
 		
 		public static final String CATALOG_ID = "catalog_id";

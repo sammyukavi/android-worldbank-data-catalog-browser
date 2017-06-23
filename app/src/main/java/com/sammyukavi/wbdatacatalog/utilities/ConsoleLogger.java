@@ -121,7 +121,7 @@ public class ConsoleLogger {
 	public static void dumpToJson(Object object) {
 		System.out.println("=========================== START LISTING OF OBJECT PROPERTIES ===========================");
 		Gson gson = new Gson();
-		ConsoleLogger.dump(gson.toJson(object));
+		dump(gson.toJson(object));
 		System.out.println("=========================== END LISTING OF OBJECT PROPERTIES ===========================");
 	}
 	
