@@ -34,6 +34,8 @@ public class ApplicationConstants {
 	
 	public class StringBundles {
 		
+		public static final String OPERATION_SEARCH = "search";
+		public static final String OPERATION_BROWSE = "browse";
 		public static final String CATALOG_ID = "catalog_id";
 		public static final String NAME = "name";
 		public static final String DESCRIPTION = "description";

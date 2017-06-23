@@ -58,6 +58,10 @@ public interface ListCatalogContract {
 		void setResultsPerPage(int resultsPerPage);
 		
 		void search(String searchTerm);
+		
+		void setOperation(String operation);
+		
+		String getOperation();
 	}
 	
 }

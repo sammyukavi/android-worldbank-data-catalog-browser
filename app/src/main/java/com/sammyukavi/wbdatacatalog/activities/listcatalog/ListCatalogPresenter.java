@@ -27,6 +27,7 @@ package com.sammyukavi.wbdatacatalog.activities.listcatalog;
 import static com.sammyukavi.wbdatacatalog.utilities.ApplicationConstants.MessageCodes.ERROR_OCCURED;
 import static com.sammyukavi.wbdatacatalog.utilities.ApplicationConstants.MessageCodes.NO_INTERNET;
 import static com.sammyukavi.wbdatacatalog.utilities.ApplicationConstants.MessageCodes.NO_RESULTS;
+import static com.sammyukavi.wbdatacatalog.utilities.ApplicationConstants.StringBundles.OPERATION_BROWSE;
 
 import com.sammyukavi.wbdatacatalog.activities.BasePresenter;
 import com.sammyukavi.wbdatacatalog.data.CatalogDataService;
@@ -46,6 +47,7 @@ public class ListCatalogPresenter extends BasePresenter implements ListCatalogCo
 	private int mPage = 1;
 	private ListCatalogContract.View mListCatalogView;
 	private CatalogDataService mCatalogDataService;
+	private String operation = OPERATION_BROWSE;
 	
 	public ListCatalogPresenter(@NonNull ListCatalogContract.View view) {
 		this.mListCatalogView = view;
@@ -146,5 +148,15 @@ public class ListCatalogPresenter extends BasePresenter implements ListCatalogCo
 			mListCatalogView.showMessage(NO_INTERNET);
 		}
 		
+	}
+	
+	@Override
+	public void setOperation(String operation) {
+		this.operation = operation;
+	}
+	
+	@Override
+	public String getOperation() {
+		return operation;
 	}
 }

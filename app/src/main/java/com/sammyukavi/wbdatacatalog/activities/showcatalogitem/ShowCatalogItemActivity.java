@@ -15,7 +15,7 @@ public class ShowCatalogItemActivity extends BaseActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setTitle(R.string.app_name);
+		setTitle(R.string.app_title);
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 		getLayoutInflater().inflate(R.layout.activity_show_catalog_item, mFrameLayout);
 		// Create fragment

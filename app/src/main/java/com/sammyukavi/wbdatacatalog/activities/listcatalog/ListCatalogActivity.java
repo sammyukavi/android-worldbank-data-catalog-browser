@@ -24,6 +24,9 @@
 
 package com.sammyukavi.wbdatacatalog.activities.listcatalog;
 
+import static com.sammyukavi.wbdatacatalog.utilities.ApplicationConstants.StringBundles.OPERATION_BROWSE;
+import static com.sammyukavi.wbdatacatalog.utilities.ApplicationConstants.StringBundles.OPERATION_SEARCH;
+
 import com.sammyukavi.wbdatacatalog.R;
 import com.sammyukavi.wbdatacatalog.activities.BaseActivity;
 
@@ -40,11 +43,12 @@ public class ListCatalogActivity extends BaseActivity {
 	protected ListCatalogFragment mListCatalogRecordFragment;
 	private Handler mHandler = new Handler();
 	private boolean mSearchPerformed = false;
+	private SearchView searchView;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setTitle(R.string.app_name);
+		setTitle(R.string.app_title);
 		getLayoutInflater().inflate(R.layout.activity_list_catalog, mFrameLayout);
 		// Create fragment
 		mListCatalogRecordFragment =
@@ -62,7 +66,7 @@ public class ListCatalogActivity extends BaseActivity {
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		getMenuInflater().inflate(R.menu.menu_main, menu);
-		MenuItem searchItem = menu.findItem(R.id.action_search);
+		final MenuItem searchItem = menu.findItem(R.id.action_search);
 		MenuItemCompat.setOnActionExpandListener(searchItem, new MenuItemCompat.OnActionExpandListener() {
 			
 			@Override
@@ -73,20 +77,20 @@ public class ListCatalogActivity extends BaseActivity {
 			@Override
 			public boolean onMenuItemActionCollapse(MenuItem item) {
 				if (mSearchPerformed) {
+					mPresenter.setOperation(OPERATION_BROWSE);
 					mListCatalogRecordFragment.reloadCatalog();
 				}
 				return true;
 			}
 		});
-		SearchView searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
+		searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
 		searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
 			
 			@Override
 			public boolean onQueryTextSubmit(String searchTerm) {
-				if (searchTerm.length() > 0) {
-					mSearchPerformed = true;
+				if (searchTerm.trim().length() > 0) {
 					mPresenter.setPage(1);
-					mPresenter.search(searchTerm);
+					performSearch(searchTerm);
 				}
 				return false;
 			}
@@ -94,21 +98,30 @@ public class ListCatalogActivity extends BaseActivity {
 			@Override
 			public boolean onQueryTextChange(final String searchTerm) {
 				mHandler.removeCallbacksAndMessages(null);
-				if (searchTerm.length() > 0) {
+				if (searchTerm.trim().length() > 0) {
 					mHandler.postDelayed(new Runnable() {
 						
 						@Override
 						public void run() {
 							mPresenter.setPage(1);
-							mPresenter.search(searchTerm);
+							performSearch(searchTerm);
 						}
 					}, 1000);
 				}
 				return true;
 			}
 		});
-		
 		return true;
+	}
+	
+	public void performSearch() {
+		performSearch(searchView.getQuery().toString());
+	}
+	
+	public void performSearch(String searchTerm) {
+		mSearchPerformed = true;
+		mPresenter.setOperation(OPERATION_SEARCH);
+		mPresenter.search(searchTerm);
 	}
 	
 }

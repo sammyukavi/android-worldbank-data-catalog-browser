@@ -24,6 +24,8 @@
 
 package com.sammyukavi.wbdatacatalog.activities.listcatalog;
 
+import static com.sammyukavi.wbdatacatalog.utilities.ApplicationConstants.StringBundles.OPERATION_SEARCH;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -50,7 +52,6 @@ import android.widget.TextView;
 public class ListCatalogFragment extends BaseFragment<ListCatalogContract.Presenter>
 		implements ListCatalogContract.View {
 	
-	private CatalogAdapter mCatalogAdapter;
 	private ProgressBar mLoadingProgressBar;
 	private View mViewsContainer, mRootView, mHeader, mNoInternetMessage;
 	private TextView mTotalResults;
@@ -58,9 +59,16 @@ public class ListCatalogFragment extends BaseFragment<ListCatalogContract.Presen
 	private ArrayAdapter<String> mPagesAdapter;
 	private List<String> mPagesList = new ArrayList<>();
 	private int mCurrentPage = 1, mMainCatalogPage = 1;
+	private ListCatalogActivity listCatalogActivity;
 	
 	public static ListCatalogFragment newInstance() {
 		return new ListCatalogFragment();
+	}
+	
+	@Override
+	public void onCreate(@Nullable Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		listCatalogActivity = (ListCatalogActivity) getActivity();
 	}
 	
 	@Override
@@ -89,9 +97,13 @@ public class ListCatalogFragment extends BaseFragment<ListCatalogContract.Presen
 			public void onItemSelected(AdapterView<?> adapterView, View view, int arg2, long arg3) {
 				int index = (adapterView.getSelectedItemPosition()) + 1;
 				if (mCurrentPage != index) {
-					mMainCatalogPage = mCurrentPage = index;
 					mPresenter.setPage(index);
-					mPresenter.fetchCatalog();
+					if (mPresenter.getOperation().equalsIgnoreCase(OPERATION_SEARCH)) {
+						listCatalogActivity.performSearch();
+					} else {
+						mMainCatalogPage = mCurrentPage = index;
+						mPresenter.fetchCatalog();
+					}
 				}
 			}
 			
@@ -171,7 +183,7 @@ public class ListCatalogFragment extends BaseFragment<ListCatalogContract.Presen
 		//find view by id and attach adapter for the recyclerView
 		RecyclerView catalogList = (RecyclerView) mRootView.findViewById(R.id.catalogList);
 		catalogList.setLayoutManager(new LinearLayoutManager(getContext()));
-		mCatalogAdapter = new CatalogAdapter(catalog.getDatacatalog(), getActivity());
+		CatalogAdapter mCatalogAdapter = new CatalogAdapter(catalog.getDatacatalog(), getActivity());
 		catalogList.setAdapter(mCatalogAdapter);
 	}
 	

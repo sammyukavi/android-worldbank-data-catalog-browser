@@ -23,7 +23,8 @@
   -->
 
 <resources>
-	<string name="app_name">World Bank Catalog</string>
+	<string name="app_name">W.Bank Catalog</string>
+	<string name="app_title">World Bank Catalog</string>
 	<string name="error_dialog_message">An unknown error occurred</string>
 	<string name="server_error_dialog_message">A server error occurred</string>
 	<string name="offline_mode_not_supported">You need to be connected to the internet for this app to work</string>
