@@ -38,6 +38,9 @@ import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+/**
+ * A class used to build the rest service
+ */
 public class RestServiceBuilder {
 	
 	private static OkHttpClient.Builder okHttpClientBuilder = new OkHttpClient.Builder();

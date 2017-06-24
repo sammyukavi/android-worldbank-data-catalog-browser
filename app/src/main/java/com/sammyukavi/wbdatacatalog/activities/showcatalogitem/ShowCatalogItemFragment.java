@@ -41,8 +41,10 @@ import com.sammyukavi.wbdatacatalog.models.Catalog;
 import com.sammyukavi.wbdatacatalog.models.DataCatalog;
 import com.sammyukavi.wbdatacatalog.models.MetaType;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -50,6 +52,10 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+/**
+ * The main fragment class. Calls the presenter to fetch catalog item and in turn renders
+ * the catalog item
+ */
 public class ShowCatalogItemFragment extends BaseFragment<ShowCatalogItemContract.Presenter>
 		implements ShowCatalogItemContract.View {
 	
@@ -57,6 +63,8 @@ public class ShowCatalogItemFragment extends BaseFragment<ShowCatalogItemContrac
 	private View mViewsContainer, mRootView, mHeader, mNoInternetMessage;
 	private TextView mName;
 	private LinearLayout mFieldsContainer;
+	private FloatingActionButton mShareButton;
+	private String url = "", detailURL = "";
 	
 	public static ShowCatalogItemFragment newInstance() {
 		return new ShowCatalogItemFragment();
@@ -78,6 +86,19 @@ public class ShowCatalogItemFragment extends BaseFragment<ShowCatalogItemContrac
 		mViewsContainer = mRootView.findViewById(R.id.viewsContainer);
 		mName = (TextView) mRootView.findViewById(R.id.name);
 		mFieldsContainer = (LinearLayout) mRootView.findViewById(R.id.fieldsContainer);
+		mShareButton = (FloatingActionButton) mRootView.findViewById(R.id.shareButton);
+		mShareButton.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
+				sharingIntent.setType("text/plain");
+				String shareBody = !detailURL.equalsIgnoreCase("") ? detailURL : url;
+				sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, mName.getText());
+				sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
+				startActivity(Intent.createChooser(sharingIntent, getString(R.string.share)));
+			}
+		});
 	}
 	
 	private void showProgressBar(boolean showProgressBar) {
@@ -111,6 +132,7 @@ public class ShowCatalogItemFragment extends BaseFragment<ShowCatalogItemContrac
 				mFieldsContainer.addView(buildTextView(getActivity().getString(R.string.description), metaType
 						.getValue()));
 			} else if (metaType.getId().equalsIgnoreCase(URL)) {
+				url = metaType.getValue();
 				mFieldsContainer.addView(buildTextView(getActivity().getString(R.string.url), metaType
 						.getValue()));
 			} else if (metaType.getId().equalsIgnoreCase(TYPE)) {
@@ -153,6 +175,7 @@ public class ShowCatalogItemFragment extends BaseFragment<ShowCatalogItemContrac
 				mFieldsContainer.addView(buildTextView(getActivity().getString(R.string.cite), metaType
 						.getValue()));
 			} else if (metaType.getId().equalsIgnoreCase(DETAIL_PAGE_URL)) {
+				detailURL = metaType.getValue();
 				mFieldsContainer.addView(buildTextView(getActivity().getString(R.string.detail_page_url), metaType
 						.getValue()));
 			} else if (metaType.getId().equalsIgnoreCase(POPULARITY)) {
@@ -162,6 +185,9 @@ public class ShowCatalogItemFragment extends BaseFragment<ShowCatalogItemContrac
 				mFieldsContainer.addView(buildTextView(getActivity().getString(R.string.coverage), metaType
 						.getValue()));
 			}
+		}
+		if (!url.equalsIgnoreCase("") && !detailURL.equalsIgnoreCase("")) {
+			mShareButton.setVisibility(View.VISIBLE);
 		}
 	}
 	

@@ -26,6 +26,9 @@ package com.sammyukavi.wbdatacatalog.models;
 
 import java.io.Serializable;
 
+/**
+ * A POJO class for unserializing the DataCatalog json object
+ */
 public class DataCatalog implements Serializable {
 	
 	private int id;

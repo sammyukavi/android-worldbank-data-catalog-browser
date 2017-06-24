@@ -46,6 +46,9 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
+/**
+ * The main activity to be extended
+ */
 public abstract class BaseActivity extends AppCompatActivity {
 	
 	protected FragmentManager mFragmentManager;

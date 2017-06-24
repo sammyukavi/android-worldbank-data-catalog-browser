@@ -31,6 +31,9 @@ import retrofit2.http.GET;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 
+/**
+ * An inteface class used by retrofit to make REST calls
+ */
 public interface RestApi {
 	
 	@GET("metatypes/name;description?format=json")

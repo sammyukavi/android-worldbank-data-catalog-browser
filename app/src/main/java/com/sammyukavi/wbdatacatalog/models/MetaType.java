@@ -26,6 +26,9 @@ package com.sammyukavi.wbdatacatalog.models;
 
 import java.io.Serializable;
 
+/**
+ * A POJO class for unserializing the MetaType json object
+ */
 public class MetaType implements Serializable {
 	
 	private String id;

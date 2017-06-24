@@ -51,6 +51,9 @@ import android.test.mock.MockContext;
 @PrepareForTest({ ApplicationConstants.class, NetworkUtils.class, RestServiceBuilder.class })
 @PowerMockIgnore("javax.net.ssl.*")
 
+/**
+ * This class is for mocking the ShowCatalogItemPresenter
+ */
 public class ShowCatalogItemPresenterTest extends UnitTestBase {
 	
 	@Mock

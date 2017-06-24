@@ -26,6 +26,9 @@ package com.sammyukavi.wbdatacatalog.models;
 
 import java.io.Serializable;
 
+/**
+ * A POJO class for unserializing the catalog json object
+ */
 public class Catalog implements Serializable {
 	
 	private int total;

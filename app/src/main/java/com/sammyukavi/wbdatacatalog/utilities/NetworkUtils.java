@@ -28,6 +28,9 @@ import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 
+/**
+ * A utility class for handling network calls or transactions
+ */
 public class NetworkUtils {
 	
 	public static boolean isOnline(Context context) {

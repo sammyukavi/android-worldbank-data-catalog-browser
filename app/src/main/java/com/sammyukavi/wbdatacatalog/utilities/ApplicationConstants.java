@@ -24,6 +24,9 @@
 
 package com.sammyukavi.wbdatacatalog.utilities;
 
+/**
+ * A class containing application constants
+ */
 public class ApplicationConstants {
 	
 	public static String API_BASE_URL = "http://api.worldbank.org/v2/datacatalog/";

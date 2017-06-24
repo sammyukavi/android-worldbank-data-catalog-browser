@@ -24,6 +24,9 @@
 
 package com.sammyukavi.wbdatacatalog.activities;
 
+/**
+ * An interface class that facilitates communication between the presenter and the fragment
+ */
 public interface BasePresenterContract {
 	
 	void subscribe();

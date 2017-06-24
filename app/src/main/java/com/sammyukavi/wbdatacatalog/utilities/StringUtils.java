@@ -24,6 +24,9 @@
 
 package com.sammyukavi.wbdatacatalog.utilities;
 
+/**
+ * A utility class for handling or manipulating strings
+ */
 public class StringUtils {
 	
 	private final static String NON_THIN = "[^iIl1\\.,']";

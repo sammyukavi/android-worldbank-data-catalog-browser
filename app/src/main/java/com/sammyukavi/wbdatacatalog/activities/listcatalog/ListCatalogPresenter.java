@@ -40,6 +40,10 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+/**
+ * The presenter class. Fetches catalog items and passes them to the fragment which in turn renders
+ * the catalog items
+ */
 public class ListCatalogPresenter extends BasePresenter implements ListCatalogContract.Presenter {
 	
 	private PagingInfo mPagingInfo;

@@ -37,6 +37,10 @@ import android.support.v7.widget.SearchView;
 import android.view.Menu;
 import android.view.MenuItem;
 
+/**
+ * The main activity class. Initializes the presenter and calls the fragment to fetch and list
+ * the catalog items
+ */
 public class ListCatalogActivity extends BaseActivity {
 	
 	protected ListCatalogContract.Presenter mPresenter;

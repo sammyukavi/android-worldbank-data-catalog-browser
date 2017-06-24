@@ -43,6 +43,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+/**
+ * A class adapter that lists catalog items in the recyclerview
+ */
 public class CatalogAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 	
 	private ListCatalogActivity mListCatalogActivity;

@@ -49,6 +49,10 @@ import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+/**
+ * The main fragment class. Calls the presenter to fetch catalog items and in turn renders
+ * the catalog items
+ */
 public class ListCatalogFragment extends BaseFragment<ListCatalogContract.Presenter>
 		implements ListCatalogContract.View {
 	

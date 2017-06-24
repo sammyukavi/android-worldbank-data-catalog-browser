@@ -61,5 +61,6 @@
 	<string name="description">Description</string>
 	<string name="expand">Expand</string>
 	<string name="no_internet">An active internet connection is required. Switch on a connection and restart this app</string>
+	<string name="share">Share</string>
 
 </resources>

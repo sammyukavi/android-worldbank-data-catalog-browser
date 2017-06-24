@@ -30,6 +30,9 @@ import com.sammyukavi.wbdatacatalog.models.Catalog;
 
 import android.content.Context;
 
+/**
+ * An interface class that facilitates communication between the presenter and the fragment
+ */
 public interface ListCatalogContract {
 	
 	interface View extends BaseView<Presenter> {

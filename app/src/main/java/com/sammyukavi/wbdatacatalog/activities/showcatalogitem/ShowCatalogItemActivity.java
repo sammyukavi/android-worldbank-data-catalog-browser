@@ -6,7 +6,10 @@ import com.sammyukavi.wbdatacatalog.activities.BaseActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-
+/**
+ * The main activity class. Initializes the presenter and calls the fragment to fetch and list
+ * a single catalog item
+ */
 public class ShowCatalogItemActivity extends BaseActivity {
 	
 	private ShowCatalogItemFragment showCatalogItemFragment;

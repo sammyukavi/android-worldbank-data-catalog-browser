@@ -19,7 +19,9 @@ import com.sammyukavi.wbdatacatalog.activities.BaseView;
 import com.sammyukavi.wbdatacatalog.models.Catalog;
 
 import android.content.Context;
-
+/**
+ * An interface class that facilitates communication between the presenter and the fragment
+ */
 public interface ShowCatalogItemContract {
 	
 	interface View extends BaseView<Presenter> {

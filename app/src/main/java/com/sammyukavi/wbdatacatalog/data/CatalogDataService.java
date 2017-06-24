@@ -32,8 +32,14 @@ import com.sammyukavi.wbdatacatalog.models.Catalog;
 import retrofit2.Call;
 import retrofit2.Callback;
 
+/**
+ * A service class that is used to fetch catalog items using REST
+ */
 public class CatalogDataService {
 	
+	/**
+	 * An instance of the class used to make REST calls
+	 */
 	private final RestApi restApi;
 	
 	public CatalogDataService() {

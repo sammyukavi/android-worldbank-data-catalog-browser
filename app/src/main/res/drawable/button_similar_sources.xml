@@ -1,4 +1,4 @@
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ~ MIT License
   ~
   ~ Copyright (c) 2017 Sammy Ukavi
@@ -22,17 +22,9 @@
   ~ SOFTWARE.
   -->
 
-<resources>
-	<dimen name="toolbar_text_size">15sp</dimen>
-	<dimen name="button_radius">5dp</dimen>
-	<dimen name="button_border_width">1dp</dimen>
-	<dimen name="catalog_buttons_padding">5dp</dimen>
-	<dimen name="catalog_buttons_margin">5dp</dimen>
-	<dimen name="ten">10dp</dimen>
-	<dimen name="twenty">20dp</dimen>
-	<dimen name="twenty_five">25dp</dimen>
-	<dimen name="five">5dp</dimen>
-	<dimen name="one">1dp</dimen>
-	<dimen name="zero">0dp</dimen>
-	<dimen name="share_button_margin">16dp</dimen>
-</resources>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+	<item android:drawable="@drawable/button_similar_sources_selected" android:state_focused="true" android:state_pressed="true" />
+	<item android:drawable="@drawable/button_similar_sources_selected" android:state_focused="false" android:state_pressed="true" />
+	<item android:drawable="@drawable/button_similar_sources_selected" android:state_focused="true" />
+	<item android:drawable="@drawable/button_similar_sources_default" android:state_focused="false" android:state_pressed="false" />
+</selector>

@@ -29,6 +29,10 @@ import com.sammyukavi.wbdatacatalog.utilities.ApplicationConstants;
 
 import android.support.v4.app.Fragment;
 
+/**
+ * The main fragment to be extended
+ * @param <T> Contract Class
+ */
 public class BaseFragment<T extends BasePresenterContract> extends Fragment implements BaseView<T> {
 	
 	protected T mPresenter;

@@ -24,6 +24,9 @@
 
 package com.sammyukavi.wbdatacatalog.data.api;
 
+/**
+ * Class used to paginate requests
+ */
 public class PagingInfo {
 	
 	private int page;

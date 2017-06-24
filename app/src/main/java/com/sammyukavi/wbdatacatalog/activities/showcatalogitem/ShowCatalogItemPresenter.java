@@ -28,16 +28,19 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+/**
+ * The presenter class. Fetches the catalog item and passes it to the fragment for rendering
+ */
 public class ShowCatalogItemPresenter extends BasePresenter implements ShowCatalogItemContract.Presenter {
 	
 	@NonNull
-	private ShowCatalogItemContract.View findListCatalogView;
-	private CatalogDataService catalogDataService;
+	private ShowCatalogItemContract.View mShowCatalogItemView;
+	private CatalogDataService mCatalogDataService;
 	
 	public ShowCatalogItemPresenter(@NonNull ShowCatalogItemContract.View view) {
-		this.findListCatalogView = view;
-		this.findListCatalogView.setPresenter(this);
-		this.catalogDataService = new CatalogDataService();
+		this.mShowCatalogItemView = view;
+		this.mShowCatalogItemView.setPresenter(this);
+		this.mCatalogDataService = new CatalogDataService();
 	}
 	
 	@Override
@@ -47,39 +50,39 @@ public class ShowCatalogItemPresenter extends BasePresenter implements ShowCatal
 	
 	@Override
 	public void fetchItemSource(int id) {
-		findListCatalogView.blockUI();
+		mShowCatalogItemView.blockUI();
 		Callback<Catalog> callback = new Callback<Catalog>() {
 			
 			@Override
 			public void onResponse(Call<Catalog> call, Response<Catalog> response) {
 				
-				findListCatalogView.unBlockUI();
+				mShowCatalogItemView.unBlockUI();
 				if (response.isSuccessful()) {
-					findListCatalogView.updateUI(response.body());
+					mShowCatalogItemView.updateUI(response.body());
 				} else {
-					findListCatalogView.showMessage(ERROR_OCCURRED);
+					mShowCatalogItemView.showMessage(ERROR_OCCURRED);
 				}
 			}
 			
 			@Override
 			public void onFailure(Call<Catalog> call, Throwable t) {
-				findListCatalogView.unBlockUI();
+				mShowCatalogItemView.unBlockUI();
 				if (t.getClass().getName().equalsIgnoreCase("com.google.gson.JsonSyntaxException")) {
-					findListCatalogView.showAlert(SOURCE_NOT_EXIST);
+					mShowCatalogItemView.showAlert(SOURCE_NOT_EXIST);
 				}
 				t.printStackTrace();
 			}
 		};		
 		
-		if (NetworkUtils.isOnline(findListCatalogView.getContext())) {
-			findListCatalogView.showHeader(true);
-			findListCatalogView.showInternetRequired(false);
-			catalogDataService.getCatalogById(id, callback);
+		if (NetworkUtils.isOnline(mShowCatalogItemView.getContext())) {
+			mShowCatalogItemView.showHeader(true);
+			mShowCatalogItemView.showInternetRequired(false);
+			mCatalogDataService.getCatalogById(id, callback);
 		} else {
-			findListCatalogView.unBlockUI();
-			findListCatalogView.showHeader(false);
-			findListCatalogView.showInternetRequired(true);
-			findListCatalogView.showMessage(NO_INTERNET);
+			mShowCatalogItemView.unBlockUI();
+			mShowCatalogItemView.showHeader(false);
+			mShowCatalogItemView.showInternetRequired(true);
+			mShowCatalogItemView.showMessage(NO_INTERNET);
 		}
 	}
 	
