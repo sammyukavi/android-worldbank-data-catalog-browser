@@ -44,6 +44,7 @@ public class ListCatalogActivity extends BaseActivity {
 	private Handler mHandler = new Handler();
 	private boolean mSearchPerformed = false;
 	private SearchView mSearchView;
+	private MenuItem mSearchMenuItem;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -60,13 +61,14 @@ public class ListCatalogActivity extends BaseActivity {
 			addFragmentToActivity(getSupportFragmentManager(), mListCatalogRecordFragment, R.id.contentFrame);
 		}
 		mPresenter = new ListCatalogPresenter(mListCatalogRecordFragment);
+		
 	}
 	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		getMenuInflater().inflate(R.menu.menu_main, menu);
-		final MenuItem searchItem = menu.findItem(R.id.action_search);
-		MenuItemCompat.setOnActionExpandListener(searchItem, new MenuItemCompat.OnActionExpandListener() {
+		mSearchMenuItem = menu.findItem(R.id.action_search);
+		MenuItemCompat.setOnActionExpandListener(mSearchMenuItem, new MenuItemCompat.OnActionExpandListener() {
 			
 			@Override
 			public boolean onMenuItemActionExpand(MenuItem item) {
@@ -76,13 +78,14 @@ public class ListCatalogActivity extends BaseActivity {
 			@Override
 			public boolean onMenuItemActionCollapse(MenuItem item) {
 				if (mSearchPerformed) {
+					hideSoftKeyboard();
 					mPresenter.setOperation(OPERATION_BROWSE);
 					mListCatalogRecordFragment.reloadCatalog();
 				}
 				return true;
 			}
 		});
-		mSearchView = (SearchView) MenuItemCompat.getActionView(searchItem);
+		mSearchView = (SearchView) MenuItemCompat.getActionView(mSearchMenuItem);
 		mSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
 			
 			@Override
@@ -118,9 +121,18 @@ public class ListCatalogActivity extends BaseActivity {
 	}
 	
 	public void performSearch(String searchTerm) {
+		hideSoftKeyboard();
 		mSearchPerformed = true;
 		mPresenter.setOperation(OPERATION_SEARCH);
 		mPresenter.search(searchTerm);
 	}
 	
+	@Override
+	protected void onRestart() {
+		super.onRestart();
+		if (mPresenter.getOperation().equalsIgnoreCase(OPERATION_SEARCH)) {
+			mPresenter.setOperation(OPERATION_BROWSE);
+			mListCatalogRecordFragment.reloadCatalog();
+		}
+	}
 }

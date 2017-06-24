@@ -98,6 +98,7 @@ public class ListCatalogFragment extends BaseFragment<ListCatalogContract.Presen
 				int index = (adapterView.getSelectedItemPosition()) + 1;
 				if (mCurrentPage != index) {
 					mPresenter.setPage(index);
+					listCatalogActivity.hideSoftKeyboard();
 					if (mPresenter.getOperation().equalsIgnoreCase(OPERATION_SEARCH)) {
 						listCatalogActivity.performSearch();
 					} else {
@@ -194,6 +195,7 @@ public class ListCatalogFragment extends BaseFragment<ListCatalogContract.Presen
 	}
 	
 	public void reloadCatalog() {
+		listCatalogActivity.hideSoftKeyboard();
 		mPresenter.setPage(mMainCatalogPage);
 		mPresenter.fetchCatalog();
 	}

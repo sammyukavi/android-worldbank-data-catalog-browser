@@ -4,7 +4,6 @@ import com.sammyukavi.wbdatacatalog.R;
 import com.sammyukavi.wbdatacatalog.activities.BaseActivity;
 
 import android.os.Bundle;
-import android.support.v4.app.NavUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -40,7 +39,8 @@ public class ShowCatalogItemActivity extends BaseActivity {
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 			case android.R.id.home:
-				NavUtils.navigateUpFromSameTask(this);
+				//NavUtils.navigateUpFromSameTask(this);
+				onBackPressed();
 				return true;
 		}
 		return super.onOptionsItemSelected(item);

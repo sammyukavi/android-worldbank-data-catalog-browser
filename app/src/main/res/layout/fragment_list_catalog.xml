@@ -81,7 +81,7 @@
 				<TextView
 						android:id="@+id/mTotalResults"
 						android:textColor="@color/black"
-						android:layout_marginTop="15dp"
+						android:layout_marginTop="@dimen/ten"
 						android:layout_weight="1"
 						android:layout_width="match_parent"
 						android:text="@string/all_sources"
@@ -99,8 +99,13 @@
 						style="@style/Widget.AppCompat.Spinner.Underlined" />
 			</LinearLayout>
 		
+		
 		</LinearLayout>
 		
+		<View
+				android:layout_width="match_parent"
+				android:layout_height="@dimen/one"
+				android:background="@color/gray" />
 		<android.support.v7.widget.RecyclerView
 				android:id="@+id/catalogList"
 				android:layout_width="match_parent"

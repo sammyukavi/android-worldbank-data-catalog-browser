@@ -26,6 +26,7 @@ package com.sammyukavi.wbdatacatalog.activities;
 
 import com.sammyukavi.wbdatacatalog.R;
 
+import android.app.Activity;
 import android.content.DialogInterface;
 import android.graphics.Color;
 import android.os.Build;
@@ -41,6 +42,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
@@ -130,5 +132,21 @@ public abstract class BaseActivity extends AppCompatActivity {
 				})
 				.setIcon(android.R.drawable.ic_dialog_alert)
 				.show();
+	}
+	
+	public void hideSoftKeyboard() {
+		hideSoftKeyboard(this);
+	}
+	
+	public static void hideSoftKeyboard(Activity activity) {
+		InputMethodManager inputMethodManager =
+				(InputMethodManager) activity.getSystemService(
+						Activity.INPUT_METHOD_SERVICE);
+		View windowToken = activity.getCurrentFocus();
+		
+		if (windowToken != null) {
+			inputMethodManager.hideSoftInputFromWindow(
+					windowToken.getWindowToken(), 0);
+		}
 	}
 }
