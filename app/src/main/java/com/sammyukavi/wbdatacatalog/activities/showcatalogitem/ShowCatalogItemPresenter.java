@@ -14,7 +14,7 @@
 
 package com.sammyukavi.wbdatacatalog.activities.showcatalogitem;
 
-import static com.sammyukavi.wbdatacatalog.utilities.ApplicationConstants.MessageCodes.ERROR_OCCURED;
+import static com.sammyukavi.wbdatacatalog.utilities.ApplicationConstants.MessageCodes.ERROR_OCCURRED;
 import static com.sammyukavi.wbdatacatalog.utilities.ApplicationConstants.MessageCodes.NO_INTERNET;
 import static com.sammyukavi.wbdatacatalog.utilities.ApplicationConstants.MessageCodes.SOURCE_NOT_EXIST;
 
@@ -57,7 +57,7 @@ public class ShowCatalogItemPresenter extends BasePresenter implements ShowCatal
 				if (response.isSuccessful()) {
 					findListCatalogView.updateUI(response.body());
 				} else {
-					findListCatalogView.showMessage(ERROR_OCCURED);
+					findListCatalogView.showMessage(ERROR_OCCURRED);
 				}
 			}
 			
@@ -65,7 +65,6 @@ public class ShowCatalogItemPresenter extends BasePresenter implements ShowCatal
 			public void onFailure(Call<Catalog> call, Throwable t) {
 				findListCatalogView.unBlockUI();
 				if (t.getClass().getName().equalsIgnoreCase("com.google.gson.JsonSyntaxException")) {
-					//end of results, no more results
 					findListCatalogView.showAlert(SOURCE_NOT_EXIST);
 				}
 				t.printStackTrace();

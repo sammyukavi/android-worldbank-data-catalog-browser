@@ -24,7 +24,7 @@
 
 package com.sammyukavi.wbdatacatalog.activities.listcatalog;
 
-import static com.sammyukavi.wbdatacatalog.utilities.ApplicationConstants.MessageCodes.ERROR_OCCURED;
+import static com.sammyukavi.wbdatacatalog.utilities.ApplicationConstants.MessageCodes.ERROR_OCCURRED;
 import static com.sammyukavi.wbdatacatalog.utilities.ApplicationConstants.MessageCodes.NO_INTERNET;
 import static com.sammyukavi.wbdatacatalog.utilities.ApplicationConstants.MessageCodes.NO_RESULTS;
 import static com.sammyukavi.wbdatacatalog.utilities.ApplicationConstants.StringBundles.OPERATION_BROWSE;
@@ -88,7 +88,7 @@ public class ListCatalogPresenter extends BasePresenter implements ListCatalogCo
 				if (response.isSuccessful()) {
 					mListCatalogView.updateCatalogList(response.body());
 				} else {
-					mListCatalogView.showMessage(ERROR_OCCURED);
+					mListCatalogView.showMessage(ERROR_OCCURRED);
 				}
 			}
 			
@@ -124,7 +124,7 @@ public class ListCatalogPresenter extends BasePresenter implements ListCatalogCo
 				if (response.isSuccessful()) {
 					mListCatalogView.updateCatalogList(response.body());
 				} else {
-					mListCatalogView.showMessage(ERROR_OCCURED);
+					mListCatalogView.showMessage(ERROR_OCCURRED);
 				}
 			}
 			

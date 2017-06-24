@@ -43,14 +43,13 @@ public class ListCatalogActivity extends BaseActivity {
 	protected ListCatalogFragment mListCatalogRecordFragment;
 	private Handler mHandler = new Handler();
 	private boolean mSearchPerformed = false;
-	private SearchView searchView;
+	private SearchView mSearchView;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setTitle(R.string.app_title);
 		getLayoutInflater().inflate(R.layout.activity_list_catalog, mFrameLayout);
-		// Create fragment
 		mListCatalogRecordFragment =
 				(ListCatalogFragment) getSupportFragmentManager().findFragmentById(R.id
 						.contentFrame);
@@ -83,8 +82,8 @@ public class ListCatalogActivity extends BaseActivity {
 				return true;
 			}
 		});
-		searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
-		searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+		mSearchView = (SearchView) MenuItemCompat.getActionView(searchItem);
+		mSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
 			
 			@Override
 			public boolean onQueryTextSubmit(String searchTerm) {
@@ -115,7 +114,7 @@ public class ListCatalogActivity extends BaseActivity {
 	}
 	
 	public void performSearch() {
-		performSearch(searchView.getQuery().toString());
+		performSearch(mSearchView.getQuery().toString());
 	}
 	
 	public void performSearch(String searchTerm) {

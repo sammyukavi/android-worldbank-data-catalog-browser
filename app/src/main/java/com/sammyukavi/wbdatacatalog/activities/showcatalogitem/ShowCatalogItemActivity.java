@@ -18,7 +18,6 @@ public class ShowCatalogItemActivity extends BaseActivity {
 		setTitle(R.string.app_title);
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 		getLayoutInflater().inflate(R.layout.activity_show_catalog_item, mFrameLayout);
-		// Create fragment
 		showCatalogItemFragment = (ShowCatalogItemFragment) getSupportFragmentManager().findFragmentById(
 				R.id.contentFrame);
 		if (showCatalogItemFragment == null) {
@@ -40,7 +39,6 @@ public class ShowCatalogItemActivity extends BaseActivity {
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
-			// Respond to the action bar's Up/Home button
 			case android.R.id.home:
 				NavUtils.navigateUpFromSameTask(this);
 				return true;

@@ -89,7 +89,7 @@ public class ListCatalogFragment extends BaseFragment<ListCatalogContract.Presen
 		mNoInternetMessage = mRootView.findViewById(R.id.noInternetMessage);
 		mTotalResults = (TextView) mRootView.findViewById(R.id.mTotalResults);
 		mPagesSpinner = (Spinner) mRootView.findViewById(R.id.pagesSpinner);
-		mPagesAdapter = new ArrayAdapter<>(getContext(), R.layout.simple_spinner_item, mPagesList);
+		mPagesAdapter = new ArrayAdapter<>(getContext(), R.layout.item_simple_spinner, mPagesList);
 		mPagesSpinner.setAdapter(mPagesAdapter);
 		mPagesSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 			
@@ -167,10 +167,7 @@ public class ListCatalogFragment extends BaseFragment<ListCatalogContract.Presen
 	
 	@Override
 	public void updateCatalogList(Catalog catalog) {
-		//update results count
 		mTotalResults.setText(getString(R.string.total_results, catalog.getTotal()));
-		//create pagination
-		//paging starts with 1 anything below that is an error, don't update current page
 		if (catalog.getPage() > 0) {
 			mCurrentPage = catalog.getPage();
 		}
@@ -180,7 +177,6 @@ public class ListCatalogFragment extends BaseFragment<ListCatalogContract.Presen
 		}
 		mPagesAdapter.notifyDataSetChanged();
 		mPagesSpinner.setSelection(mCurrentPage - 1);
-		//find view by id and attach adapter for the recyclerView
 		RecyclerView catalogList = (RecyclerView) mRootView.findViewById(R.id.catalogList);
 		catalogList.setLayoutManager(new LinearLayoutManager(getContext()));
 		CatalogAdapter mCatalogAdapter = new CatalogAdapter(catalog.getDatacatalog(), getActivity());

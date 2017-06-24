@@ -39,7 +39,8 @@
 	<string name="all_sources">Sources: All</string>
 	<string name="no_description">No Description Available</string>
 	<string name="info">Info</string>
-	<string name="no_results">The server returned zero results</string>
+	<string name="no_results">The server returned zero results. Try searching from above. Ensure that you have a woking
+		internet connection.</string>
 	<string name="languages_supported">Languages Supported</string>
 	<string name="url">URL</string>
 	<string name="type">Type</string>

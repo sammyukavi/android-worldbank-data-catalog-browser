@@ -61,7 +61,7 @@ public class BaseFragment<T extends BasePresenterContract> extends Fragment impl
 	public String getMessageFromCode(int messageCode) {
 		String message;
 		switch (messageCode) {
-			case ApplicationConstants.MessageCodes.ERROR_OCCURED:
+			case ApplicationConstants.MessageCodes.ERROR_OCCURRED:
 				message = getString(R.string.error_dialog_message);
 				break;
 			case ApplicationConstants.MessageCodes.SERVER_ERROR:

@@ -41,16 +41,13 @@ public class StringUtils {
 			return text;
 		}
 		int end = text.lastIndexOf(' ', max - 3);
-		// Just one long word. Chop it off.
 		if (end == -1) {
 			return text.substring(0, max - 3) + "...";
 		}
-		// Step forward as long as textWidth allows.
 		int newEnd = end;
 		do {
 			end = newEnd;
 			newEnd = text.indexOf(' ', end + 1);
-			// No more spaces.
 			if (newEnd == -1) {
 				newEnd = text.length();
 			}

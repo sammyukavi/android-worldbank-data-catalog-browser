@@ -68,7 +68,7 @@ public class ApplicationConstants {
 	public class MessageCodes {
 		
 		public static final int NO_INTERNET = 100;
-		public static final int ERROR_OCCURED = 101;
+		public static final int ERROR_OCCURRED = 101;
 		public static final int SERVER_ERROR = 102;
 		public static final int SOURCE_NOT_EXIST = 103;
 		public static final int NO_RESULTS = 104;
